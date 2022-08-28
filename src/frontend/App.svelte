@@ -21,10 +21,28 @@
 </style>
 
 <script lang="ts">
+  import "carbon-components-svelte/css/all.css";
+  import MainMenu from "./pages/MainMenu.svelte";
+  import Router, {push} from "svelte-spa-router"
+  import {Tabs, Tab} from "carbon-components-svelte"
   export let name: string;
+
+  const routes = {
+    "/": MainMenu 
+  }
+
+  const nav = [
+    { name: "MainMenu", route: "#/" }
+  ]
+  
 </script>
 
-<main>
-  <h1>Hello {name}!</h1>
-  <p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+
+
+
+<Tabs type="container">
+  {#each nav as point}
+    <Tab label="{point.name}" on:click="{() => push(point.route)}"/>
+  {/each}
+</Tabs>
+<Router routes="{routes}" />
