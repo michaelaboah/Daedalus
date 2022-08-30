@@ -1,17 +1,18 @@
-<script lang='ts'>
-import { Me } from "../generated/graphql";
+<script lang="ts">
+  import { Me } from "../generated/graphql";
 
-
-    $: status = Me({})
+  $: status = Me({ fetchPolicy: "network-only" });
 </script>
 
 <header>
-    This is the header
-{#await $status}
+  <slot />
+  This is the header
+
+  {#await $status}
     <div>Loading</div>
-{:then value}
+  {:then value}
     <div>User name is: {value?.data?.me?.email}</div>
-{:catch error}
+  {:catch error}
     <div>Error: {error}</div>
-{/await}
+  {/await}
 </header>

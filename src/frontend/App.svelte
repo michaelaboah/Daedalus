@@ -21,46 +21,29 @@
 </style>
 
 <script lang="ts">
-  import Login from './components/Login.svelte'
   import "carbon-components-svelte/css/all.css";
-  import MainMenu from "./pages/MainMenu.svelte";
-  import Router, {push} from "svelte-spa-router"
-  import {Tabs, Tab} from "carbon-components-svelte"
   import { setAccessToken } from './accessToken';
-  import Header from './components/Header.svelte';
+  import { onMount } from 'svelte';
+  import Routes from "./Routes.svelte";
 
-  export let name: string;
-  
-
-
-  const routes = {
-    "/": MainMenu 
-  }
-
-  const nav = [
-    { name: "MainMenu", route: "#/" }
-  ]
-
-  $: fetch("http://localhost:4000/refresh_token", {
+  let loading = true
+  onMount(async () => {
+    const response = await fetch("http://localhost:4000/refresh_token", {
       method: "POST",
       credentials: "include"
-    }).then(async x => {
-      const { accessToken } = await x.json();
-      console.log(accessToken)
+    })
+      const { accessToken } = await response.json()
       setAccessToken(accessToken);
-      // setLoading(false);
+      loading = false
     });
 
-  
 </script>
+{#if loading}
+  <div>...loading</div>
+  {:else}
+  <Routes/>
+{/if}
 
 
+  
 
-<Header/>
-<Tabs type="container">
-  {#each nav as point}
-    <Tab label="{point.name}" on:click="{() => push(point.route)}"/>
-  {/each}
-</Tabs>
-<Login/>
-<Router routes="{routes}" />
