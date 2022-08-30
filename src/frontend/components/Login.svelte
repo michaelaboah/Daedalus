@@ -8,6 +8,7 @@ import { setAccessToken } from '../accessToken';
         const loginResponse = await LoginUser({variables: { inputOptions: credentials }})
         if (loginResponse && loginResponse.data){
             isLoggedIn = false
+            console.log(loginResponse.data)
             setAccessToken(loginResponse.data?.loginUser.accessToken)
         } 
             isLoggedIn = true
