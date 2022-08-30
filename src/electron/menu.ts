@@ -27,9 +27,9 @@ export const template = [
               },
             },
             {
-              click: () => mainWindow.webContents.send('get-projects'),
-              label: 'Increment',
-              accelerator: "Cmd+2"
+              click: () => mainWindow.webContents.send("get-projects"),
+              label: "Increment",
+              accelerator: "Cmd+2",
             },
             { type: "separator" },
             { role: "services" },
@@ -38,10 +38,14 @@ export const template = [
             { role: "hideOthers" },
             { role: "unhide" },
             { type: "separator" },
-            { label: "Testing Quit Delete later", accelerator: "Cmd+1", click() {
-              console.log("Test quit")
-              mainWindow.webContents.send("check-projects")
-            }},
+            {
+              label: "Testing Quit Delete later",
+              accelerator: "Cmd+1",
+              click() {
+                console.log("Test quit");
+                mainWindow.webContents.send("check-projects");
+              },
+            },
             { role: "quit" },
           ],
         },
@@ -145,8 +149,7 @@ export const template = [
   // Exchange Sync
   {
     label: "Database Sync",
-    submenu: [
-    ],
+    submenu: [],
   },
 
   // { role: 'windowMenu' }
@@ -191,7 +194,7 @@ export const openFile = async (): Promise<any> => {
     if (err) {
       return console.log(err);
     } else {
-        console.log(data)
+      console.log(data);
     }
   });
 };
@@ -217,10 +220,10 @@ export const saveAsFile = async (data?: any) => {
   }
 };
 
-
-export const beforeQuit = (_data:any) => {
+export const beforeQuit = (_data: any) => {
   try {
   } catch (error) {
-    if (error instanceof TypeError) {}
+    if (error instanceof TypeError) {
+    }
   }
-}
+};

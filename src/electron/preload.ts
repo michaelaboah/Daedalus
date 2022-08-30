@@ -9,7 +9,6 @@ export const API = {
   getVersion: (): Promise<string> => ipcRenderer.invoke("GET/version"),
   toggle: () => ipcRenderer.invoke("dark-mode:toggle"),
   system: () => ipcRenderer.invoke("dark-mode:system"),
-  onServerUpdated: (cb: (data: any) => void) => ipcRenderer.on("server-updated", (_event, data) => cb(data)),
   openSvelteRoute: (callback: (arg0: any) => void) =>
     ipcRenderer.on("open-prefs", (_event_, args) => {
       callback(args);
@@ -29,7 +28,6 @@ export const API = {
   getProjects: (data: any) => ipcRenderer.on("get-projects", data),
 
   handleData: (callback: any) => ipcRenderer.on("get-projects", callback),
-
   onOpenFile: () => ipcRenderer.invoke("dialog:openFile"),
 };
 

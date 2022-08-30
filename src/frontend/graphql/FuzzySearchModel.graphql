@@ -1,0 +1,8 @@
+query FuzzySearch($FuzzySearchInput: String!) {
+  fuzzyTextSearch(fuzzySearch: $FuzzySearchInput) {
+    id
+    model
+    manufacturer
+    category
+  }
+}

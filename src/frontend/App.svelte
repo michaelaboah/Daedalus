@@ -21,11 +21,16 @@
 </style>
 
 <script lang="ts">
+  import Login from './components/Login.svelte'
   import "carbon-components-svelte/css/all.css";
   import MainMenu from "./pages/MainMenu.svelte";
   import Router, {push} from "svelte-spa-router"
   import {Tabs, Tab} from "carbon-components-svelte"
+
+
   export let name: string;
+
+
 
   const routes = {
     "/": MainMenu 
@@ -45,4 +50,5 @@
     <Tab label="{point.name}" on:click="{() => push(point.route)}"/>
   {/each}
 </Tabs>
+<Login/>
 <Router routes="{routes}" />
