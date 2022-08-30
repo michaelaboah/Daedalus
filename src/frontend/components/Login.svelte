@@ -1,11 +1,25 @@
 <script lang="ts">
 import { setAccessToken } from '../accessToken';
 
-    import {LoginUser, type UserInput } from '../generated/graphql'
+    import {LoginUser, MeDoc, type MeQuery, type UserInput } from '../generated/graphql'
     let loginOptions: UserInput = {email: "", password: ""}
     let isLoggedIn = false
     const sumbitLogin = async (credentials: UserInput) => {
-        const loginResponse = await LoginUser({variables: { inputOptions: credentials }})
+        const loginResponse = await LoginUser({
+            variables: { inputOptions: credentials },
+            update: (store, {data}) => {
+                if (!data) {
+                    return null
+                }
+                store.writeQuery<MeQuery>({
+                    query: MeDoc,
+                    data: {
+                        me: data.loginUser.user
+                    }
+                })
+                return data.loginUser.user
+            }
+        })
         if (loginResponse && loginResponse.data){
             isLoggedIn = false
             console.log(loginResponse.data)

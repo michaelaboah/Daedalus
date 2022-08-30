@@ -26,10 +26,11 @@
   import MainMenu from "./pages/MainMenu.svelte";
   import Router, {push} from "svelte-spa-router"
   import {Tabs, Tab} from "carbon-components-svelte"
-
+  import { setAccessToken } from './accessToken';
+  import Header from './components/Header.svelte';
 
   export let name: string;
-
+  
 
 
   const routes = {
@@ -39,12 +40,23 @@
   const nav = [
     { name: "MainMenu", route: "#/" }
   ]
+
+  $: fetch("http://localhost:4000/refresh_token", {
+      method: "POST",
+      credentials: "include"
+    }).then(async x => {
+      const { accessToken } = await x.json();
+      console.log(accessToken)
+      setAccessToken(accessToken);
+      // setLoading(false);
+    });
+
   
 </script>
 
 
 
-
+<Header/>
 <Tabs type="container">
   {#each nav as point}
     <Tab label="{point.name}" on:click="{() => push(point.route)}"/>
