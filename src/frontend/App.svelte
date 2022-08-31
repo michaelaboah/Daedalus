@@ -23,26 +23,35 @@
 <script lang="ts">
   import "carbon-components-svelte/css/all.css";
   import { setAccessToken } from './accessToken';
-  import { onMount } from 'svelte';
+  // import { onMount } from 'svelte';
   import Routes from "./Routes.svelte";
 
-  let loading = true
-  onMount(async () => {
-    const response = await fetch("http://localhost:4000/refresh_token", {
+  // onMount(async () => {
+  //   const response = await fetch("http://localhost:4000/refresh_token", {
+  //     method: "POST",
+  //     credentials: "include"
+  //   })
+  //     const { accessToken } = await response.json()
+  //     setAccessToken(accessToken);
+  //   });
+
+    const response = fetch("http://localhost:4000/refresh_token", {
       method: "POST",
       credentials: "include"
     })
-      const { accessToken } = await response.json()
-      setAccessToken(accessToken);
-      loading = false
-    });
+    .then(x => x.json())
+    .then(({accessToken: recivedToken}) => {
+      setAccessToken(recivedToken)
+    })
 
 </script>
-{#if loading}
+
+{#await response}
   <div>...loading</div>
-  {:else}
+{:then}
   <Routes/>
-{/if}
+{/await}
+
 
 
   
