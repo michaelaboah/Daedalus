@@ -1,8 +1,5 @@
 <script lang="ts">
-    import { handleEquipment } from "../stores/Store";
+  import { handleEquipment } from "../stores/Store";
 
-    $: gear = handleEquipment()
-    
+  $: gear = handleEquipment();
 </script>
-
-

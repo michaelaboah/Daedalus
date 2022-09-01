@@ -1,26 +1,30 @@
 <script lang="ts">
-import { Tab, Tabs } from "carbon-components-svelte";
-import Router, { push } from "svelte-spa-router";
-import Login from "./components/Login.svelte";
-import MainMenu from "./pages/MainMenu.svelte";
-import Bye from './pages/Bye.svelte';
+  import Router, { push } from "svelte-spa-router";
+  import Header from "./components/Header.svelte";
+  import MainMenu from "./pages/MainMenu.svelte";
+  import Bye from "./pages/Bye.svelte";
+  import EquipmentListPage from "./pages/EquipmentListPage.svelte";
 
-const routes = {
+  const routes = {
     "/": MainMenu,
-    "/Bye": Bye 
-  }
+    "/Bye": Bye,
+    "/EquipmentListPage": EquipmentListPage,
+  };
 
   const nav = [
-    { name: "MainMenu", route: "#/" },
-    { name: "Bye", route: "#/Bye" },
-  ]
-    
+    { name: "MainMenu", route: "/" },
+    { name: "Bye", route: "/Bye" },
+    { name: "EquipmentListPage", route: "/EquipmentListPage" },
+    { name: "PreferencesPage", route: "#/Bye" },
+  ];
 </script>
 
-<Tabs type="container">
+<!-- <Tabs type="container">
     {#each nav as point}
       <Tab label="{point.name}" on:click="{() => push(point.route)}"/>
     {/each}
-  </Tabs>
-  <Login/>
+  </Tabs> -->
+<!-- <Header /> -->
+<div>
   <Router routes="{routes}" />
+</div>
