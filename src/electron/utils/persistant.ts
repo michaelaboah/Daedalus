@@ -5,8 +5,12 @@ type WindowStore = {
   winPos: number[];
   bounds: Electron.Rectangle;
 };
+
+type UserPreferences = {
+  credentials: { username: string; password: string };
+};
+
 const windowStorage = new Store<WindowStore>();
-// const dataStorage = new Store();
 
 export const getWinRect = () => {
   const defaultBounds = {
@@ -24,4 +28,16 @@ export const getWinRect = () => {
 
 export const saveBounds = (bounds: Electron.Rectangle) => {
   windowStorage.set("bounds", bounds);
+};
+
+export const renderStorage = new Store<UserPreferences>();
+renderStorage.set("test", { username: "test", password: "hello" });
+
+export const getUserPreferences = () => {
+  return renderStorage.get("preferences");
+};
+
+export const setUserPreferences = (prefs: UserPreferences) => {
+  renderStorage.set("preferences", prefs);
+  return renderStorage.get("preferences");
 };

@@ -5,7 +5,7 @@ import { autoUpdater } from "electron-updater";
 import logger from "./utils/logger";
 import settings from "./utils/settings";
 import { openFile, saveAsFile, template } from "./menu";
-import { getWinRect, saveBounds } from "./utils/persistant";
+import { getUserPreferences, getWinRect, saveBounds, setUserPreferences } from "./utils/persistant";
 import { initSQLite, ormMain } from "./database/init_SQL";
 import "dotenv/config";
 const isProd = process.env.NODE_ENV === "production" || app.isPackaged;
@@ -257,6 +257,9 @@ process.on("uncaughtException", (error) => {
   logger.error(error.stack ? error.stack : error.message);
 });
 
+//send the process to the render
+
+// ************************ Others ************************
 ipcMain.on("open-window", (args) => {
   console.log(args);
 });
@@ -277,6 +280,14 @@ ipcMain.on("counter-value", (_event, value) => {
   console.log(value); // will print value to Node console
   // beforeQuit(value)
 });
-//send the process to the render
 
-// ************************ Others ************************
+ipcMain.handle("persist:frontend", async (_event, args) => {
+  console.log(args);
+  if (args.prefsData !== undefined) {
+    setUserPreferences(args.prefsData);
+    console.log(getUserPreferences());
+    return getUserPreferences();
+  } else {
+    return getUserPreferences();
+  }
+});

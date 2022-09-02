@@ -1,6 +1,6 @@
 import { MikroORM } from "@mikro-orm/core";
 
-import { Post } from "./entities/Post";
+// import { Post } from "./entities/Post";
 
 import microOrmConfig from "./mikro-orm.config";
 import sqlite3 from "sqlite3";
@@ -13,8 +13,8 @@ export const ormMain = async () => {
   const generator = orm.getSchemaGenerator();
   await generator.updateSchema();
 
-  const get = await orm.em.find(Post, {});
-  console.log(get);
+  // const get = await orm.em.find(Post, {});
+  // console.log(get);
 };
 
 export const initSQLite = () => {

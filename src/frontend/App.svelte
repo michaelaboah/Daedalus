@@ -12,18 +12,18 @@
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
-  // import { accessToken } from './stores/Store'
-
 
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),
   });
 
-  // $: test = testStorage
-
+  
   let isDark: boolean
-  // import { persist } from './stores/renderStore'
-  // console.log($persist)
+  const getStorage = async () => {
+    const data = await window.api.handleUserStorage("preferences")
+    console.log(data)
+  }
+getStorage()
 </script>
 
 <SvelteUIProvider withGlobalStyles themeObserver="{isDark ? 'dark' : 'light'}">
