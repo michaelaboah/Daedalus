@@ -2,10 +2,31 @@
   import { Box, Button, Checkbox, Input, InputWrapper } from "@svelteuidev/core";
   import { setAccessToken } from "../utils/accessToken";
   import { LoginUser, MeDoc, type MeQuery, type UserInput } from "../generated/graphql";
+import { onMount } from "svelte";
+
 
   let loginOptions: UserInput = { email: "", password: "" };
   let isLoggedIn: boolean
   let isRemembered: boolean
+
+
+  const handleRememberMe = async () => {
+    const userData = await window.api.handleUserStorage('preferences')
+    const remember = await window.api.handleUserStorage('preferences', { ...userData, rememberMe: true })
+    isRemembered = remember.rememberMe
+    console.log(isRemembered)
+  }
+
+  onMount(async () => {
+    const userData = await window.api.handleUserStorage('preferences')
+    isRemembered = userData.rememberMe
+  })
+
+
+
+
+
+
 
   const sumbitLogin = async (credentials: UserInput) => {
     const loginResponse = await LoginUser({
@@ -55,7 +76,7 @@
     />
     <Button on:click="{() => sumbitLogin(loginOptions)}">Login</Button>
   </InputWrapper>
-  <Checkbox label="Remember Me" bind:checked={isRemembered} on:change={() => console.log(isRemembered)}/>
+  <Checkbox label="Remember Me" bind:checked={isRemembered} on:click={handleRememberMe}/>
 </Box>
 
 

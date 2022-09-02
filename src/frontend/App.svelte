@@ -7,16 +7,21 @@
 <script lang="ts">
   import { AppShell, SvelteUIProvider } from "@svelteuidev/core";
   import "@svelteuidev/prism";
-  import { setContext, onMount, onDestroy} from "svelte";
+  import { setContext } from "svelte";
   import Footer from "./components/Footer.svelte";
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
-  let isDark = async function getDarkMode() {
+  let isDark: boolean
+  
+  (async () => {
+    isDark = await getDarkMode()
+  })()
+  
+  async function getDarkMode() {
     const persistData = await window.api.handleUserStorage('preferences')
     return persistData.darkmode
   }
-
   
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),

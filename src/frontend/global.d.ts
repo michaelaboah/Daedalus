@@ -21,8 +21,3 @@ export class Equipment {
   rackUnit: Int;
   frequencyRange: String;
 }
-
-export type UserPreferences = {
-  credentials: { username: string; password: string };
-  darkmode: boolean;
-};

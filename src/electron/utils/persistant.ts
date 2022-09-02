@@ -9,6 +9,7 @@ type WindowStore = {
 export type UserPreferences = {
   credentials?: { username: string; password: string };
   darkmode?: boolean;
+  rememberMe?: boolean;
 };
 
 const windowStorage = new Store<WindowStore>();
