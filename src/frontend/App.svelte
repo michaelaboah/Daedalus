@@ -5,17 +5,31 @@
 </style>
 
 <script lang="ts">
-  // import "carbon-components-svelte/css/all.css";
-  import { SvelteUIProvider } from "@svelteuidev/core";
+  import { AppShell, SvelteUIProvider } from "@svelteuidev/core";
   import "@svelteuidev/prism";
+  import { setContext } from "svelte";
+  import Footer from "./components/Footer.svelte";
   import Header from "./components/Header.svelte";
+  import { themeKey } from "./utils/contextKeys";
+  import Routes from "./Routes.svelte";
+  // import { accessToken } from './stores/Store'
 
-  let isDark = false;
-  const toggleTheme = () => {
-    isDark = !isDark;
-  };
+
+  setContext(themeKey, {
+    toggleDark: () => (isDark = !isDark),
+  });
+
+  // $: test = testStorage
+
+  let isDark: boolean
+  // import { persist } from './stores/renderStore'
+  // console.log($persist)
 </script>
 
 <SvelteUIProvider withGlobalStyles themeObserver="{isDark ? 'dark' : 'light'}">
-  <Header />
+  <AppShell>
+    <Header />
+    <Routes />
+    <Footer />
+  </AppShell>
 </SvelteUIProvider>

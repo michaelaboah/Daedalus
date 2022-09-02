@@ -1,8 +1,8 @@
 import { ApolloLink, HttpLink, Observable } from "@apollo/client";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
-import { getAccessToken, setAccessToken } from "../accessToken";
-import { GRAPHQL_ENDPOINT } from "../ClientContants";
+import { getAccessToken, setAccessToken } from "../utils/accessToken";
+import { GRAPHQL_ENDPOINT } from "../utils/ClientContants";
 export const tokenRefreshLink = new TokenRefreshLink({
   accessTokenField: "accessToken",
   isTokenValidOrUndefined: () => {

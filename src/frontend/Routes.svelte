@@ -1,30 +1,31 @@
+<style>
+  div {
+    margin-top: 6vh;
+    /* margin-left: 2vw; */
+  }
+</style>
+
 <script lang="ts">
-  import Router, { push } from "svelte-spa-router";
-  import Header from "./components/Header.svelte";
+  import Router from "svelte-spa-router";
   import MainMenu from "./pages/MainMenu.svelte";
   import Bye from "./pages/Bye.svelte";
   import EquipmentListPage from "./pages/EquipmentListPage.svelte";
-
+  import PreferencesPage from "./pages/PreferencesPage.svelte";
   const routes = {
     "/": MainMenu,
     "/Bye": Bye,
     "/EquipmentListPage": EquipmentListPage,
+    "/PreferencesPage": PreferencesPage,
   };
 
-  const nav = [
-    { name: "MainMenu", route: "/" },
-    { name: "Bye", route: "/Bye" },
-    { name: "EquipmentListPage", route: "/EquipmentListPage" },
-    { name: "PreferencesPage", route: "#/Bye" },
-  ];
+  // const nav = [
+  //   { name: "MainMenu", route: "/" },
+  //   { name: "Bye", route: "/Bye" },
+  //   { name: "EquipmentListPage", route: "/EquipmentListPage" },
+  //   { name: "PreferencesPage", route: "/PreferencesPage" },
+  // ];
 </script>
 
-<!-- <Tabs type="container">
-    {#each nav as point}
-      <Tab label="{point.name}" on:click="{() => push(point.route)}"/>
-    {/each}
-  </Tabs> -->
-<!-- <Header /> -->
 <div>
   <Router routes="{routes}" />
 </div>

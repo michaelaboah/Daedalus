@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { setAccessToken } from "../accessToken";
+  import { Box, Button, Checkbox, Input, InputWrapper } from "@svelteuidev/core";
+  import { setAccessToken } from "../utils/accessToken";
   import { LoginUser, MeDoc, type MeQuery, type UserInput } from "../generated/graphql";
 
   let loginOptions: UserInput = { email: "", password: "" };
-  let isLoggedIn = false;
+  let isLoggedIn: boolean
+  let isRemembered: boolean
+
   const sumbitLogin = async (credentials: UserInput) => {
     const loginResponse = await LoginUser({
       variables: { inputOptions: credentials },
       update: (store, { data }) => {
-        if (!data) {
-          return null;
-        }
+        if (!data) return null;
         store.writeQuery<MeQuery>({
           query: MeDoc,
           data: {
@@ -22,21 +23,39 @@
     });
     if (loginResponse && loginResponse.data) {
       isLoggedIn = false;
-      console.log(loginResponse.data);
       setAccessToken(loginResponse.data?.loginUser.accessToken);
     }
     isLoggedIn = true;
   };
+
+
+
+
+
+
+
+
+
 </script>
 
-<form action="" on:submit|preventDefault="{() => sumbitLogin(loginOptions)}">
-  <input type="text" bind:value="{loginOptions.email}" placeholder="Enter: Email" />
-  <input type="password" bind:value="{loginOptions.password}" placeholder="Enter: Password" />
-  <button type="submit">Login</button>
-</form>
+<Box ml=6>
+  <InputWrapper
+    label="Login Credentials"
+    description="Please enter your username and password"
+    size='lg'
+  >
+    <Input 
+      bind:value="{loginOptions.email}" 
+      placeholder="Enter: Email" 
+    />
+    <Input 
+      bind:value="{loginOptions.password}" 
+      placeholder="Enter: Password" 
+      type="password" 
+    />
+    <Button on:click="{() => sumbitLogin(loginOptions)}">Login</Button>
+  </InputWrapper>
+  <Checkbox label="Remember Me" bind:checked={isRemembered} on:change={() => console.log(isRemembered)}/>
+</Box>
 
-{#if isLoggedIn}
-  <div>Logged In!!</div>
-{:else}
-  <div>Failed</div>
-{/if}
+
