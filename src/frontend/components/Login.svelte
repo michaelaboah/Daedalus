@@ -9,18 +9,28 @@ import { onMount } from "svelte";
   let isLoggedIn: boolean
   let isRemembered: boolean
 
-
-  const handleRememberMe = async () => {
-    const userData = await window.api.handleUserStorage('preferences')
-    const remember = await window.api.handleUserStorage('preferences', { ...userData, rememberMe: true })
-    isRemembered = remember.rememberMe
-    console.log(isRemembered)
-  }
-
   onMount(async () => {
     const userData = await window.api.handleUserStorage('preferences')
     isRemembered = userData.rememberMe
+    if (isRemembered && userData.credentials !== undefined) {
+      loginOptions = userData.credentials
+    }
   })
+
+  const handleRememberMe = async () => {
+    isRemembered = !isRemembered
+    const userData = await window.api.handleUserStorage('preferences')
+    if (isRemembered === false) {
+      console.log()
+      loginOptions = { email: "", password: "" }
+      userData.credentials = undefined
+      console.log(userData.credentials)
+      await window.api.handleUserStorage('preferences', { ...userData, rememberMe: isRemembered })
+    }
+    await window.api.handleUserStorage('preferences', { ...userData, rememberMe: isRemembered })
+  }
+
+
 
 
 
@@ -45,6 +55,12 @@ import { onMount } from "svelte";
     if (loginResponse && loginResponse.data) {
       isLoggedIn = false;
       setAccessToken(loginResponse.data?.loginUser.accessToken);
+    }
+
+    //check if the user wants the login to be remembered
+    if (isRemembered) {
+      const userData = await window.api.handleUserStorage('preferences')
+      await window.api.handleUserStorage('preferences', { ...userData, credentials })
     }
     isLoggedIn = true;
   };
@@ -76,7 +92,7 @@ import { onMount } from "svelte";
     />
     <Button on:click="{() => sumbitLogin(loginOptions)}">Login</Button>
   </InputWrapper>
-  <Checkbox label="Remember Me" bind:checked={isRemembered} on:click={handleRememberMe}/>
+  <Checkbox label="Remember Me" bind:checked={isRemembered} on:change={handleRememberMe}/>
 </Box>
 
 
