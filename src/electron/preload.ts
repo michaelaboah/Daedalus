@@ -1,4 +1,5 @@
 import { ipcRenderer, contextBridge } from "electron";
+import type { UserPreferences } from "./utils/persistant";
 
 /**
  * @function getVersion()
@@ -30,7 +31,8 @@ export const API = {
   handleData: (callback: any) => ipcRenderer.on("get-projects", callback),
   onOpenFile: () => ipcRenderer.invoke("dialog:openFile"),
 
-  handleUserStorage: (key: string, prefsData?: any) => ipcRenderer.invoke("persist:frontend", { key, prefsData }),
+  handleUserStorage: (key: string, prefsData?: UserPreferences) =>
+    ipcRenderer.invoke("persist:frontend", { key, prefsData }),
 };
 
 contextBridge.exposeInMainWorld("api", API);

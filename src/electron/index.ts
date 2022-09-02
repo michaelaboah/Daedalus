@@ -282,10 +282,8 @@ ipcMain.on("counter-value", (_event, value) => {
 });
 
 ipcMain.handle("persist:frontend", async (_event, args) => {
-  console.log(args);
   if (args.prefsData !== undefined) {
     setUserPreferences(args.prefsData);
-    console.log(getUserPreferences());
     return getUserPreferences();
   } else {
     return getUserPreferences();

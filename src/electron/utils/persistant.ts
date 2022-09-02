@@ -6,8 +6,9 @@ type WindowStore = {
   bounds: Electron.Rectangle;
 };
 
-type UserPreferences = {
-  credentials: { username: string; password: string };
+export type UserPreferences = {
+  credentials?: { username: string; password: string };
+  darkmode?: boolean;
 };
 
 const windowStorage = new Store<WindowStore>();
@@ -30,7 +31,7 @@ export const saveBounds = (bounds: Electron.Rectangle) => {
   windowStorage.set("bounds", bounds);
 };
 
-export const renderStorage = new Store<UserPreferences>();
+const renderStorage = new Store<UserPreferences>();
 renderStorage.set("test", { username: "test", password: "hello" });
 
 export const getUserPreferences = () => {

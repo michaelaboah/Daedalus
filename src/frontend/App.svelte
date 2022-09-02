@@ -7,29 +7,29 @@
 <script lang="ts">
   import { AppShell, SvelteUIProvider } from "@svelteuidev/core";
   import "@svelteuidev/prism";
-  import { setContext } from "svelte";
+  import { setContext, onMount, onDestroy} from "svelte";
   import Footer from "./components/Footer.svelte";
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
+  let isDark = async function getDarkMode() {
+    const persistData = await window.api.handleUserStorage('preferences')
+    return persistData.darkmode
+  }
 
+  
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),
   });
 
-  
-  let isDark: boolean
-  const getStorage = async () => {
-    const data = await window.api.handleUserStorage("preferences")
-    console.log(data)
-  }
-getStorage()
 </script>
 
-<SvelteUIProvider withGlobalStyles themeObserver="{isDark ? 'dark' : 'light'}">
+<SvelteUIProvider withGlobalStyles themeObserver="{ isDark ? 'dark' : 'light'}">
   <AppShell>
     <Header />
     <Routes />
     <Footer />
   </AppShell>
 </SvelteUIProvider>
+
+

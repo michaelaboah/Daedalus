@@ -26,7 +26,7 @@
         <Button>Notification</Button>
       </Grid.Col>
       <Grid.Col span="{2}">
-        <Button>remove</Button>
+        <Button on:click="{() => push('/PreferencesPage')}">remove</Button>
       </Grid.Col>
       <Grid.Col span="{1}" offset="{15}">
         <ActionIcon radius="xl" size="xl" variant="hover" color="dark" on:click="{() => push('/PreferencesPage')}">
