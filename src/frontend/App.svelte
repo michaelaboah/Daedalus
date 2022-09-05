@@ -12,29 +12,26 @@
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
-  let isDark: boolean
-  
+  let isDark: boolean;
+
   (async () => {
-    isDark = await getDarkMode()
-  })()
-  
+    isDark = await getDarkMode();
+  })();
+
   async function getDarkMode() {
-    const persistData = await window.api.handleUserStorage('preferences')
-    return persistData.darkmode
+    const persistData = await window.api.handleUserStorage("preferences");
+    return persistData.darkmode;
   }
-  
+
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),
   });
-
 </script>
 
-<SvelteUIProvider withGlobalStyles themeObserver="{ isDark ? 'dark' : 'light'}">
+<SvelteUIProvider withGlobalStyles themeObserver="{isDark ? 'dark' : 'light'}">
   <AppShell>
-    <Header />
     <Routes />
+    <Header />
     <Footer />
   </AppShell>
 </SvelteUIProvider>
-
-

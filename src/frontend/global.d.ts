@@ -8,16 +8,34 @@ declare global {
 
 export class Equipment {
   // id: Int!
-  createdAt: !String;
-  updatedAt: !String;
-  category: !String;
-  manufacturer: !String;
-  model: !String;
-  publicNotes: String;
-  cost: Float;
-  powerDraw: Float;
-  weight: Float;
-  depth: Float;
-  rackUnit: Int;
-  frequencyRange: String;
+  createdAt: string;
+  updatedAt: string;
+  category: string;
+  manufacturer: string;
+  model: string;
+  publicNotes?: string;
+  cost: number;
+  powerDraw?: number;
+  weight?: number;
+  depth?: number;
+  rackUnit?: number;
+  frequencyRange?: string;
+}
+
+export class Gear extends Equipment {
+  createdAt: string;
+  updatedAt: string;
+  category: string;
+  manufacturer: string;
+  model: string;
+  quantity: number;
+  cost: number;
+  publicNotes?: string;
+  powerDraw?: number;
+  weight?: number;
+  depth?: number;
+  rackUnit?: number;
+  frequencyRange?: string;
+
+  items?: Item[];
 }

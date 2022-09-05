@@ -16,7 +16,7 @@
 
 <Footer height="10" fixed>
   {#if !isNotified}
-    {#await response }
+    {#await response}
       <Notification
         title="Connection Successful!"
         icon="{Check}"

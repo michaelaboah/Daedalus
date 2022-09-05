@@ -1,14 +1,10 @@
 import { writable } from "svelte/store";
-import type { Equipment } from "../global";
+import type { Gear } from "../global";
 
 export const accessToken = writable("");
 
-export const handleEquipment = (currentEquipment?: Equipment[]) => {
-  const { subscribe, set, update } = writable<Equipment[]>();
-  if (currentEquipment) {
-    set(currentEquipment);
-  }
-  return { subscribe, set, update };
-};
+export const gearList = writable<Gear[]>([]);
+
+export const itemMap = writable<Map<string, number>>(new Map());
 
 export const count = writable(0);

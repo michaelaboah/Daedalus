@@ -1,3 +1,67 @@
-<script>
-  // your script goes here
+<script lang="ts">
+  import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
+import EquipmentComponent from "../components/EquipmentComponent.svelte";
+import type { Gear } from "../global";
+import { gearList } from "../stores/Store";
+ $: test = 0
+
+
+  const addGear = () => {
+    const itemTemplate: Gear = {
+        category: "",
+        createdAt: "",
+        manufacturer: "",
+        model: "",
+        updatedAt: "",
+        quantity: 0,
+        publicNotes: undefined,
+        cost: 0,
+        powerDraw: undefined,
+        weight: undefined,
+        depth: undefined,
+        rackUnit: undefined,
+        frequencyRange: undefined,
+        items: undefined
+    }
+
+    $gearList = [...$gearList, itemTemplate]
+  }
+
 </script>
+<Header height="10" pb='4'>
+  <Grid>
+    <Grid.Col span={1}>
+      <Button
+        on:click={addGear}
+      >Add Gear</Button>
+    </Grid.Col>
+    <Grid.Col span={1}>
+      <Button
+        on:click={() => console.log($gearList)}
+      >Delete Gear</Button>
+    </Grid.Col>
+    <Grid.Col span={1}>
+      <Button
+        on:click={() => console.log(test)}
+      >test</Button>
+    </Grid.Col>
+  </Grid>
+</Header>
+
+
+  {#if $gearList.length !== 0}
+    <Stack align='stretch' justify="flex-start" spacing='xs'>
+      {#each $gearList as gear}
+        <EquipmentComponent equipment={gear} bind:items={gear.items}/>
+      {/each}
+    </Stack>
+  {:else}
+    <Center>
+      <Paper>
+      <Text size='xl' align='center'>
+        Empty list bud, try adding something using the Add Gear button or the 
+        <Kbd>⌘</Kbd> + <Kbd>N</Kbd>
+      </Text>
+      </Paper>
+    </Center>
+  {/if}

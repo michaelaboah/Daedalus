@@ -17,13 +17,6 @@
     "/EquipmentListPage": EquipmentListPage,
     "/PreferencesPage": PreferencesPage,
   };
-
-  // const nav = [
-  //   { name: "MainMenu", route: "/" },
-  //   { name: "Bye", route: "/Bye" },
-  //   { name: "EquipmentListPage", route: "/EquipmentListPage" },
-  //   { name: "PreferencesPage", route: "/PreferencesPage" },
-  // ];
 </script>
 
 <div>
