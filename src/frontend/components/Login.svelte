@@ -20,7 +20,6 @@
     isRemembered = !isRemembered;
     const userData = await window.api.handleUserStorage("preferences");
     if (isRemembered === false) {
-      console.log();
       loginOptions = { email: "", password: "" };
       userData.credentials = undefined;
       console.log(userData.credentials);

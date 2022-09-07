@@ -8,8 +8,8 @@
     credentials: "include",
   })
     .then((x) => x.json())
-    .then(({ accessToken: recivedToken }) => {
-      setAccessToken(recivedToken);
+    .then(({ accessToken: recievedToken }) => {
+      setAccessToken(recievedToken);
     });
   let isNotified: boolean;
 </script>

@@ -5,7 +5,6 @@
   import { push } from "svelte-spa-router";
   import { ActionIcon, Box, Button, Grid, Header } from "@svelteuidev/core";
   import { Gear } from "radix-icons-svelte";
-
 </script>
 
 <Header fixed height="40" m="10">
