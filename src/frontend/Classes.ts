@@ -1,5 +1,5 @@
 export type Equipment = {
-  modelId: number;
+  modelId?: number;
   createdAt: string;
   updatedAt: string;
   category: string;
@@ -59,3 +59,5 @@ export const buildItem = () => ({
   privateNotes: "",
   // box: new Box();
 });
+
+export type Gear = Equipment & { items: Item[]; quantity: number };

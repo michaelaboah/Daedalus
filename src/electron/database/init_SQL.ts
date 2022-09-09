@@ -21,7 +21,7 @@ export const initSQLite = () => {
   try {
     sqlite3.verbose();
     const db = new sqlite3.Database(
-      `${homeDir.homedir()}/Desktop/frey-SQL-test.db`,
+      `${homeDir.homedir()}/Desktop/frey-SQL-gear.db`,
       sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
       (_err) => {
         // do your thing

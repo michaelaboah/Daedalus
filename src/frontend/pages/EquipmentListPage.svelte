@@ -1,13 +1,12 @@
-<script lang="ts">
+<script>
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
-  import { buildEquipment, type Equipment, type Item } from "../Classes";
+  import { buildEquipment,  } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
   import { gearList } from "../stores/Store";
   const addGear = () => {
     $gearList = [...$gearList, buildEquipment()];
     console.log($gearList)
   };
-  type Gear = Equipment & { items: Item[], quantity: number}
   let test = {...$gearList.at(-1), quantity: 0, items: []}
 </script>
 
@@ -24,7 +23,7 @@
 {#if $gearList.length !== 0}
   <Stack align="stretch" justify="flex-start" spacing="xs">
     {#each $gearList as gear, id}
-      <EquipmentComponent  bind:gear={gear}  index={id}/>
+      <EquipmentComponent  bind:gear={gear} index={id}/>
     {/each}
   </Stack>
   {:else}
