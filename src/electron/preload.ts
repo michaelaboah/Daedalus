@@ -11,7 +11,7 @@ export const API = {
   toggle: () => ipcRenderer.invoke("dark-mode:toggle"),
   system: () => ipcRenderer.invoke("dark-mode:system"),
   openSvelteRoute: (callback: (arg0: any) => void) =>
-    ipcRenderer.on("open-prefs", (_event_, args) => {
+    ipcRenderer.on("go-to-page", (_event_, args) => {
       callback(args);
     }),
   sendToSvelte: (callback: (arg0: boolean) => void) =>

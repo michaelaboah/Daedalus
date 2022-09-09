@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Notification, Footer } from "@svelteuidev/core";
+  import { Notification, Footer } from "@svelteuidev/core";
   import { Check, Cross2 } from "radix-icons-svelte";
   import { setAccessToken } from "../utils/accessToken";
 
@@ -12,12 +12,12 @@
       console.log(recievedToken);
       setAccessToken(recievedToken);
     });
-  let isNotified: boolean;
+  let isNotified: boolean = true
 </script>
 
 <!-- <Button on:click={() => isNotified = !isNotified}>Notification</Button> -->
 <Footer height="10" fixed>
-  <!-- {#if f} -->
+  {#if isNotified}
   {#await response}
     <Notification
       title="Connection Successful!"
@@ -43,5 +43,5 @@
       <div>Error Message: {error}</div>
     </Notification>
   {/await}
-  <!-- {/if} -->
+  {/if}
 </Footer>

@@ -1,4 +1,5 @@
 import "svelte";
+import { push } from "svelte-spa-router";
 import App from "./App.svelte";
 
 const app = new App({
@@ -6,6 +7,10 @@ const app = new App({
   props: {
     name: "world",
   },
+});
+
+window.api.openSvelteRoute((path: string) => {
+  push(path);
 });
 
 export default app;

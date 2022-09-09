@@ -23,7 +23,7 @@ export const template = [
               label: "Preferences",
               accelerator: "Cmd+,",
               click() {
-                mainWindow.webContents.send("open-prefs", "#/Preferences");
+                mainWindow.webContents.send("go-to-page", "#/PreferencesPage");
               },
             },
             {
@@ -101,7 +101,7 @@ export const template = [
               label: "Preferences",
               accelerator: "Ctrl+,",
               click() {
-                mainWindow.webContents.send("open-prefs", "#/Preferences");
+                mainWindow.webContents.send("go-to-page", "#/PreferencesPage");
               },
             },
           ]), // This is fine
