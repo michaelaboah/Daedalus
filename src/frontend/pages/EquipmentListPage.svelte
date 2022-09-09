@@ -1,30 +1,14 @@
 <script lang="ts">
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
+  import { buildEquipment, type Equipment, type Item } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
-  import type { Gear } from "../global";
   import { gearList } from "../stores/Store";
-  $: test = 0;
-
   const addGear = () => {
-    const itemTemplate: Gear = {
-      category: "",
-      createdAt: "",
-      manufacturer: "",
-      model: "",
-      updatedAt: "",
-      quantity: 0,
-      publicNotes: undefined,
-      cost: 0,
-      powerDraw: undefined,
-      weight: undefined,
-      depth: undefined,
-      rackUnit: undefined,
-      frequencyRange: undefined,
-      items: undefined,
-    };
-
-    $gearList = [...$gearList, itemTemplate];
+    $gearList = [...$gearList, buildEquipment()];
+    console.log($gearList)
   };
+  type Gear = Equipment & { items: Item[], quantity: number}
+  let test = {...$gearList.at(-1), quantity: 0, items: []}
 </script>
 
 <Header height="10" pb="4">
@@ -35,19 +19,15 @@
     <Grid.Col span="{1}">
       <Button on:click="{() => console.log($gearList)}">Delete Gear</Button>
     </Grid.Col>
-    <Grid.Col span="{1}">
-      <Button on:click="{() => console.log(test)}">test</Button>
-    </Grid.Col>
   </Grid>
 </Header>
-
 {#if $gearList.length !== 0}
   <Stack align="stretch" justify="flex-start" spacing="xs">
-    {#each $gearList as gear}
-      <EquipmentComponent equipment="{gear}" bind:items="{gear.items}" />
+    {#each $gearList as gear, id}
+      <EquipmentComponent  bind:gear={gear}  index={id}/>
     {/each}
   </Stack>
-{:else}
+  {:else}
   <Center>
     <Paper>
       <Text size="xl" align="center">
@@ -56,4 +36,4 @@
       </Text>
     </Paper>
   </Center>
-{/if}
+  {/if}

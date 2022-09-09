@@ -56,6 +56,10 @@ export class Equipment {
   @Property({ type: "int", nullable: true })
   rackUnit?: number;
 
+  @Field(() => [String])
+  @Property({ type: "array", default: [] })
+  itemArray? = new Array<any>();
+
   @Field(() => String, { nullable: true })
   @Property({ type: "text", nullable: true })
   frequencyRange?: string;

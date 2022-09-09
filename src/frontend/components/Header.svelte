@@ -19,7 +19,7 @@
         <Button radius="sm" on:click="{() => push('#/EquipmentListPage')}">Equipemnt List</Button>
       </Grid.Col>
       <Grid.Col span="{2}">
-        <Button>Notification</Button>
+        <div></div>
       </Grid.Col>
       <Grid.Col span="{2}">
         <Button on:click="{() => push('#/PreferencesPage')}">remove</Button>

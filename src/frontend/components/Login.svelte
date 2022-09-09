@@ -39,6 +39,7 @@
             me: data.loginUser.user,
           },
         });
+        console.log()
         return data.loginUser.user;
       },
     });

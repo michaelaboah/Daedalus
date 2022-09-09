@@ -1,8 +1,18 @@
-query FuzzySearch($FuzzySearchInput: String!) {
-  fuzzyTextSearch(fuzzySearch: $FuzzySearchInput) {
+query FuzzyTextSearch($fuzzySearch: String!) {
+  fuzzyTextSearch(fuzzySearch: $fuzzySearch) {
     id
-    model
-    manufacturer
+    createdAt
+    updatedAt
     category
+    manufacturer
+    model
+    publicNotes
+    cost
+    powerDraw
+    weight
+    depth
+    rackUnit
+    frequencyRange
+    # itemArray
   }
 }
