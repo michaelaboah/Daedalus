@@ -1,14 +1,19 @@
+<style>
+  .parent :global(.childClass) {
+    color: red;
+  }
+</style>
+
 <script>
-  import { Box, Button, Grid, NumberInput, Text, TextInput, theme } from "@svelteuidev/core";
+  import { Box, Button, Grid, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
   import { MagnifyingGlass } from "radix-icons-svelte";
-  import { buildItem } from "../Classes";
+  import { buildEquipment, buildItem } from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   import AutoComplete from 'simple-svelte-autocomplete'
   import { gearList } from "../stores/Store";
-import { onMount } from "svelte";
 
   export let gear
-  export let index = 0
+  export let index = 0 
   let items = []
   $: reformed = $gearList[index]
   $: totalCost = reformed.quantity * reformed.cost
@@ -27,14 +32,9 @@ import { onMount } from "svelte";
     newItem.items = []
     items = [...items, buildItem()]
     newItem.items = items
-    console.log(newItem.items)
     reformed = newItem
     $gearList[index] = newItem
   };
-
-  onMount(() => {
-    console.log($gearList)
-  })
 
   //handle total item count
   const handleItemChange = () => {
@@ -42,15 +42,32 @@ import { onMount } from "svelte";
       reformed.quantity = sum.reduce((partial, i) => partial + i, 0)
       console.log(`Total Items: ${reformed.quantity}`)
   };  
-</script>
 
+  const handleCreateGear = (newGear) => {
+    let createEquip = buildEquipment({model: newGear, createdAt: new Date(), updatedAt: new Date()})
+    return $gearList[index] = createEquip
+  }
+</script>
 
 <Box css="{{ backgroundColor: theme.colors['dark100'] }}">
   <Grid cols="{12}">
     <Grid.Col span="{3}">
-      <Text weight="bold" size="xl">Model</Text>
-      <AutoComplete  bind:selectedItem={gear} searchFunction={asyncTest} labelFieldName="model" delay="200"/>
-      <TextInput  icon="{MagnifyingGlass}" placeholder="Search by Model" size="sm" bind:value={gear.model}/>
+      <!-- <Text weight="bold" size="xl">Model</Text> -->
+      <div>
+        <AutoComplete
+          inputId="autocomplete"
+          bind:selectedItem="{gear}"
+          bind:value="{gear}"
+          searchFunction="{asyncTest}"
+          placeholder="Search For Item Ex: 'Galaxy'"
+          labelFieldName="model"
+          delay="200"
+          create={true}
+          createText={"Item Doesn't exist, create one?"}
+          onCreate={handleCreateGear}
+        />
+      </div>
+      <!-- <TextInput  icon="{MagnifyingGlass}" placeholder="Search by Model" size="sm" bind:value={gear.model}/> -->
     </Grid.Col>
     <Grid.Col span="{1}">
       <Text weight="bold" size="xl">Total Quantity</Text>
@@ -67,21 +84,16 @@ import { onMount } from "svelte";
       <Text weight="bold" size="xl">Total Power Draw: {totalPower}</Text>
     </Grid.Col>
     <Grid.Col offset="{1}" span="{1}">
-      <Button on:click="{addItem}" disabled={!gear.model}>Add Item</Button>
+      <Button on:click="{addItem}" disabled="{!gear.model}">Add Item</Button>
     </Grid.Col>
     {#if reformed.items != undefined && reformed.items.length > 0}
-      {#each reformed.items as {description, itemQuantity}}
-        <Grid.Col span="{2}">
+      {#each reformed.items as { description, itemQuantity, publicNotes, privateNotes }}
+        <SimpleGrid cols={4} ml="lg" mb="lg">
           <TextInput label="Description" bind:value="{description}" />
-        </Grid.Col>
-        <Grid.Col span="{1}">
-          <NumberInput
-            label="Quantity"
-            min="{0}"
-            on:change={handleItemChange}
-            bind:value={itemQuantity}
-          />
-        </Grid.Col>
+          <NumberInput label="Quantity" min="{0}" on:change="{handleItemChange}" bind:value="{itemQuantity}" />
+          <TextInput label="Public Notes" bind:value="{publicNotes}" />
+          <TextInput label="Private Notes" bind:value="{privateNotes}" />
+        </SimpleGrid>  
       {/each}
     {/if}
   </Grid>

@@ -1,13 +1,14 @@
 <script lang="ts">
-  import { Box, Button, Checkbox, Input, InputWrapper } from "@svelteuidev/core";
+  import { Box, Button, Checkbox, Input, InputWrapper, Popper, Center } from "@svelteuidev/core";
   import { setAccessToken } from "../utils/accessToken";
   import { LoginUser, MeDoc, type MeQuery, type UserInput } from "../generated/graphql";
   import { onMount } from "svelte";
 
   let loginOptions: UserInput = { email: "", password: "" };
   let isLoggedIn: boolean;
+  let mounted = false
   let isRemembered: boolean;
-
+  let reference: HTMLElement
   onMount(async () => {
     const userData = await window.api.handleUserStorage("preferences");
     isRemembered = userData.rememberMe;
@@ -39,7 +40,7 @@
             me: data.loginUser.user,
           },
         });
-        console.log()
+        console.log();
         return data.loginUser.user;
       },
     });
@@ -54,6 +55,10 @@
       await window.api.handleUserStorage("preferences", { ...userData, credentials });
     }
     isLoggedIn = true;
+    mounted = true
+    setTimeout(() => {
+      mounted = false
+    }, 2000)
   };
 </script>
 
@@ -61,7 +66,12 @@
   <InputWrapper label="Login Credentials" description="Please enter your username and password" size="lg">
     <Input bind:value="{loginOptions.email}" placeholder="Enter: Email" />
     <Input bind:value="{loginOptions.password}" placeholder="Enter: Password" type="password" />
-    <Button on:click="{() => sumbitLogin(loginOptions)}">Login</Button>
+    <Button bind:element={reference} on:click="{() => sumbitLogin(loginOptions)}">Login</Button>
   </InputWrapper>
+  <Popper reference={reference} mounted={mounted} exitTransitionOptions={{start: 5, x: 3, y: 2}} position='right' gutter={7} arrowSize={6} arrowDistance={3} withArrow>
+    <Box css={{backgroundColor: "$teal500"}} m="xl" >
+      <Center inline>login Success!!</Center> 
+    </Box>
+  </Popper>
   <Checkbox label="Remember Me" bind:checked="{isRemembered}" on:change="{handleRememberMe}" />
 </Box>

@@ -1,13 +1,13 @@
 <script>
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
-  import { buildEquipment,  } from "../Classes";
+  import { buildEquipment } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
   import { gearList } from "../stores/Store";
   const addGear = () => {
     $gearList = [...$gearList, buildEquipment()];
-    console.log($gearList)
+    console.log($gearList);
   };
-  let test = {...$gearList.at(-1), quantity: 0, items: []}
+  let test = { ...$gearList.at(-1), quantity: 0, items: [] };
 </script>
 
 <Header height="10" pb="4">
@@ -23,10 +23,10 @@
 {#if $gearList.length !== 0}
   <Stack align="stretch" justify="flex-start" spacing="xs">
     {#each $gearList as gear, id}
-      <EquipmentComponent  bind:gear={gear} index={id}/>
+      <EquipmentComponent bind:gear index="{id}" />
     {/each}
   </Stack>
-  {:else}
+{:else}
   <Center>
     <Paper>
       <Text size="xl" align="center">
@@ -35,4 +35,4 @@
       </Text>
     </Paper>
   </Center>
-  {/if}
+{/if}
