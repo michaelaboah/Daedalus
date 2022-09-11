@@ -1,6 +1,8 @@
 <style>
-  .parent :global(.childClass) {
-    color: red;
+  div :global(.parent *) {
+    margin-right: 1vw;
+    /* margin-top: 2%; */
+    width: 200%;
   }
 </style>
 
@@ -50,9 +52,9 @@
 </script>
 
 <Box css="{{ backgroundColor: theme.colors['dark100'] }}">
-  <Grid cols="{12}">
+  <Grid cols="{12}" grow>
     <Grid.Col span="{3}">
-      <!-- <Text weight="bold" size="xl">Model</Text> -->
+      <Text weight="bold" size="xl" m="xs">Autosearch Model</Text>
       <div>
         <AutoComplete
           inputId="autocomplete"
@@ -65,23 +67,24 @@
           create={true}
           createText={"Item Doesn't exist, create one?"}
           onCreate={handleCreateGear}
+          className="parent"
         />
       </div>
       <!-- <TextInput  icon="{MagnifyingGlass}" placeholder="Search by Model" size="sm" bind:value={gear.model}/> -->
     </Grid.Col>
     <Grid.Col span="{1}">
-      <Text weight="bold" size="xl">Total Quantity</Text>
+      <Text weight="bold" size="xl" m="xs">Total Quantity</Text>
       <NumberInput defaultValue="{gear.quantity}" bind:value="{reformed.quantity}" min="{0}" size="sm" hideControls />
     </Grid.Col>
     <Grid.Col span="{1}">
-      <Text weight="bold" size="xl">Initial Cost</Text>
+      <Text weight="bold" size="xl" m="xs">Initial Cost</Text>
       <NumberInput bind:value="{gear.cost}" min="{0}" size="sm" />
     </Grid.Col>
     <Grid.Col span="{2}">
-      <Text weight="bold" size="xl">Total Cost: ${totalCost}</Text>
+      <Text weight="bold" size="xl" m="xs">Total Cost: ${totalCost}</Text>
     </Grid.Col>
     <Grid.Col span="{2}">
-      <Text weight="bold" size="xl">Total Power Draw: {totalPower}</Text>
+      <Text weight="bold" size="xl" m="xs">Total Power Draw: {totalPower}</Text>
     </Grid.Col>
     <Grid.Col offset="{1}" span="{1}">
       <Button on:click="{addItem}" disabled="{!gear.model}">Add Item</Button>
@@ -98,3 +101,4 @@
     {/if}
   </Grid>
 </Box>
+
