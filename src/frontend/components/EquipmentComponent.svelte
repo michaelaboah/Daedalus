@@ -1,16 +1,8 @@
 <style>
-<<<<<<< HEAD
   div :global(.autocomplete *){
     width: 25vw;
     max-width: 100%;
 	}	
-=======
-  div :global(.parent *) {
-    margin-right: 1vw;
-    /* margin-top: 2%; */
-    width: 200%;
-  }
->>>>>>> 5a1becf2f0a7a2b67d02a19fb8e99dd49836a46e
 </style>
 
 <script>
