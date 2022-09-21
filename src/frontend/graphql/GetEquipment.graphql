@@ -1,6 +1,6 @@
 query GetEquipment($model: String!) {
   getEquipment(model: $model) {
-    id
+    # id
     createdAt
     updatedAt
     category

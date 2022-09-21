@@ -1,7 +1,7 @@
 mutation CreateEquipment($inputOptions: EquipmentInput!) {
   createEquipment(inputOptions: $inputOptions) {
     equipment {
-      id
+      # id
       createdAt
       updatedAt
       category

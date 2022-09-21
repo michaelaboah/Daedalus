@@ -22,8 +22,9 @@
 </Header>
 {#if $gearList.length !== 0}
   <Stack align="stretch" justify="flex-start" spacing="xs">
-    {#each $gearList as gear, id}
-      <EquipmentComponent bind:gear index="{id}" />
+    {#each $gearList as gear}
+    {gear.modelId}
+      <EquipmentComponent bind:husk={gear} />
     {/each}
   </Stack>
 {:else}

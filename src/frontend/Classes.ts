@@ -1,7 +1,7 @@
 export type Equipment = {
-  modelId?: number;
-  createdAt: Date;
-  updatedAt: Date;
+  modelId: number;
+  createdAt?: Date;
+  updatedAt?: Date;
   category: string;
   manufacturer: string;
   model: string;
@@ -12,21 +12,27 @@ export type Equipment = {
   depth?: number;
   rackUnit?: number;
   frequencyRange?: string;
+
+  items?: Item[];
+  quantity?: number;
 };
 
-export const buildEquipment = (newItem?: Equipment) => ({
-  createdAt: newItem ? newItem.createdAt : undefined,
-  updatedAt: newItem ? newItem.updatedAt : undefined,
-  category: newItem ? newItem.category : "",
-  manufacturer: newItem ? newItem.manufacturer : "",
-  model: newItem ? newItem.model : "",
-  publicNotes: newItem ? newItem.publicNotes : "",
-  cost: newItem ? newItem.cost : 0,
-  powerDraw: newItem ? newItem.powerDraw : 0,
-  weight: newItem ? newItem.weight : 0,
-  depth: newItem ? newItem.depth : 0,
-  rackUnit: newItem ? newItem.rackUnit : 0,
-  frequencyRange: newItem ? newItem.frequencyRange : "",
+export const buildEquipment = (): Equipment => ({
+  modelId: 0,
+  // createdAt:  undefined,
+  // updatedAt:  undefined,
+  category: "",
+  manufacturer: "",
+  model: "",
+  publicNotes: "",
+  cost: 0,
+  powerDraw: 0,
+  weight: 0,
+  depth: 0,
+  rackUnit: 0,
+  frequencyRange: "",
+  items: [],
+  quantity: 0,
 });
 
 export class Box {

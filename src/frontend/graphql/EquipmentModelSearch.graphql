@@ -1,6 +1,6 @@
 query EquipmentModelSearch($fullSearch: String!) {
   fullTextSearch(fullSearch: $fullSearch) {
-    id
+    # id
     createdAt
     updatedAt
     category
