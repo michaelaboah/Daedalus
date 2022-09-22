@@ -1,13 +1,15 @@
-<script>
+<script lang="ts">
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
-  import { buildEquipment } from "../Classes";
+  import { buildGear } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
   import { gearList } from "../stores/Store";
   const addGear = () => {
-    $gearList = [...$gearList, null];
+    // let t: Gear = {...$gearList}
+    //@ts-ignore
+    $gearList = [...$gearList, buildGear($gearList.length -1)];
     console.log($gearList);
   };
-  let test = { ...$gearList.at(-1), quantity: 0, items: [] };
+  // let test = { ...$gearList.at(-1), quantity: 0, items: [] };
 </script>
 
 <Header height="10" pb="4">
@@ -23,6 +25,7 @@
 {#if $gearList.length !== 0}
   <Stack align="stretch" justify="flex-start" spacing="xs">
     {#each $gearList as gear}
+    {gear.gearId}
       <EquipmentComponent bind:gear/>
     {/each}
   </Stack>

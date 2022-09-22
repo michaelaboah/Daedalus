@@ -8,13 +8,13 @@
 <script lang="ts">
   //@ts-ignore
   import { Box, Button, Grid, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
-  import { buildEquipment, buildItem, type Equipment } from "../Classes";
+  import { buildEquipment, buildItem, type Equipment, type Gear } from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   //@ts-ignore
   import AutoComplete from 'simple-svelte-autocomplete'
   import { gearList } from "../stores/Store";
 
-  export let gear: any
+  export let gear: Gear
   let index = 0 
   let searchString = " "
   // let items: any[] = []
@@ -41,7 +41,7 @@
   };  
 
   const handleCreateGear = (newGear: Equipment) => {
-    let createEquip = buildEquipment(newGear)
+    let createEquip = buildEquipment()
     return $gearList[index] = createEquip
   }
 
