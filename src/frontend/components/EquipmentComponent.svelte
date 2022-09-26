@@ -1,79 +1,76 @@
 <style>
-  div :global(.autocomplete *){
+  div :global(.autocomplete *) {
     width: 25vw;
     max-width: 100%;
-	}	
+  }
 </style>
 
 <script lang="ts">
   //@ts-ignore
-  import { Box, Button, Grid, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
+  import { Box, Button, Grid, Input, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
   import { buildEquipment, buildItem, type Equipment, type Gear } from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   //@ts-ignore
-  import Select from "svelte-select"
+  import Select from "svelte-select";
   import { gearList } from "../stores/Store";
-    import { onMount } from "svelte/internal";
+  import { onMount } from "svelte/internal";
 
-  export let gear: Gear
-  export let index = 0 
-  let searchString = " "
+  export let gear: Gear;
+  export let index = 0;
+  let searchString = "";
   // let items: any[] = []
-  $: reformed = $gearList[index]
-  // $: totalCost = reformed.quantity * reformed.cost
-  // $: totalPower = reformed.quantity * reformed.powerDraw
-  // $: totalItems = 0
+  $: reformed = $gearList[index];
 
   onMount(() => {
-    searchString = ""
-  })
+    searchString = "Galaxy";
+  });
 
-    
   const asyncTest = async () => {
-    const response = await AsyncFuzzyTextSearch({variables: {fuzzySearch: searchString}})
-    return response.data.fuzzyTextSearch
-  }
+    const response = await AsyncFuzzyTextSearch({ variables: { fuzzySearch: gear.model } });
+    return response.data.fuzzyTextSearch;
+  };
 
-  const addItem = () => { 
-    // if()
+  const addItem = () => {
+    gear.items = [...gear.items, buildItem()];
   };
 
   //handle total item count
   const handleItemChange = () => {
-      const sum = reformed.items.map((item) => item.itemQuantity)
-      reformed.quantity = sum.reduce((partial, i) => partial + i, 0)
-      console.log(`Total Items: ${reformed.quantity}`)
-  };  
+    const sum = reformed.items.map((item) => item.itemQuantity);
+    reformed.quantity = sum.reduce((partial, i) => partial + i, 0);
+    console.log(`Total Items: ${reformed.quantity}`);
+  };
 
   const handleCreateGear = (newGear: Equipment) => {
-    let createEquip = buildEquipment()
-    return $gearList[index] = createEquip
-  }
+    let createEquip = buildEquipment();
+    return ($gearList[index] = createEquip);
+  };
 
-  const handleSelect = (e: { detail: Gear; }) => {
-    console.log(e.detail)
-    gear = e.detail
-    $gearList[index] = gear
-  }
-
-
+  const handleSelect = (e: { detail: Gear }) => {
+    console.log(e.detail);
+    gear = e.detail;
+    $gearList[index] = gear;
+  };
 </script>
 
 <Box css="{{ backgroundColor: theme.colors['dark100'] }}">
   <Grid cols="{12}" grow>
     <Grid.Col span="{3}">
-      <Text weight="bold" size="xl" m="xs">Autosearch Model</Text>
+      <Text weight="bold" size="xl" m="xs">Quick Search Model</Text>
       <div>
-        <Select 
-          loadOptions={asyncTest} 
-          on:select={handleSelect}
-          labelIdentifier={"model"}
+        <Select
+          value="{null}"
+          loadOptions="{asyncTest}"
+          placeholder=""
+          on:select="{handleSelect}"
+          labelIdentifier="{'model'}"
         />
       </div>
+      <Input bind:value="{gear.model}" />
     </Grid.Col>
     <Grid.Col span="{1}">
       <Text weight="bold" size="xl" m="xs">Total Quantity</Text>
-      <!-- <NumberInput defaultValue="{gear.quantity}" bind:value="{reformed.quantity}" min="{0}" size="sm" hideControls /> -->
+      <!-- <NumberInput defaultValue="{gear.items.length}" bind:value="{reformed.quantity}" min="{0}" size="sm" hideControls /> -->
     </Grid.Col>
     <Grid.Col span="{1}">
       <Text weight="bold" size="xl" m="xs">Initial Cost</Text>
@@ -100,4 +97,3 @@
     {/if} -->
   </Grid>
 </Box>
-

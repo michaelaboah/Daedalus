@@ -1,28 +1,41 @@
+<style>
+  .group.type-Console {
+    border: 1px solid red;
+  }
+  .group.type-Processing {
+    border: 1px solid green;
+  }
+  .thing.type-Console {
+    color: red;
+  }
+  .thing.type-Processing {
+    color: green;
+  }
+</style>
+
 <script lang="ts">
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
   import { buildGear } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
+  import EquipmentHeader from "../components/EquipmentHeader.svelte";
   import { gearList } from "../stores/Store";
   const addGear = () => {
     //@ts-ignore
-    $gearList = [...$gearList, buildGear($gearList.length -1)];
+    $gearList = [...$gearList, buildGear($gearList.length - 1)];
     console.log($gearList);
-  }
-
-
-
-
+  };
 
   $: groups = $gearList.reduce((curr, val) => {
-      let group = curr.length ? curr[curr.length - 1] : undefined 
-      if (group && group.cssClass === `type-${val.category}`) {
-        group.values.push(val)
-      } else {
-        curr.push({ cssClass: `type-${val.category}`, values: [ val ] }) 
-      }
-      return curr
-    }, [])
+    let group = curr.length ? curr[curr.length - 1] : undefined;
+    if (group && group.cssClass === `type-${val.category}`) {
+      group.values.push(val);
+    } else {
+      curr.push({ cssClass: `type-${val.category}`, values: [val] });
+    }
+    return curr;
+  }, []);
 
+  $: $gearList.sort((a, b) => a.category.localeCompare(b.category));
 </script>
 
 <Header height="10" pb="4">
@@ -36,20 +49,18 @@
   </Grid>
 </Header>
 
-
-
-
 {#each groups as group}
   <Stack align="stretch" justify="flex-start" spacing="xs">
-      <div class="group {group.cssClass}">
-        {JSON.stringify(group)}
-      {#each group.values as value, index}
-        <div class="thing {group.cssClass}">
-          {JSON.stringify(value)}
-          <EquipmentComponent bind:gear={value} {index}/>
-        </div>
-      {/each}
-      </div>
+    <div class="group {group.cssClass}">
+      <EquipmentHeader categoryName="{group.cssClass}">
+        <br />
+        {#each group.values as value, index (value)}
+          <div class="thing {group.cssClass}">
+            <EquipmentComponent bind:gear="{value}" index="{index}" />
+          </div>
+        {/each}
+      </EquipmentHeader>
+    </div>
   </Stack>
 {:else}
   <Center>
@@ -61,19 +72,3 @@
     </Paper>
   </Center>
 {/each}
-
-
-<style>
-	.group.type-Console {
-		border: 1px solid red;
-	}
-	.group.type-Processing {
-		border: 1px solid green;
-	}
-	.thing.type-Console {
-		color: red;
-	}
-	.thing.type-Processing {
-		color: green;
-	}
-</style>
