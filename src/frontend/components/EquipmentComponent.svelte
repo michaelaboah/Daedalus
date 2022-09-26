@@ -11,12 +11,12 @@
   import { buildEquipment, buildItem, type Equipment, type Gear } from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   //@ts-ignore
-  import AutoComplete from 'simple-svelte-autocomplete'
+  import Select from "svelte-select"
   import { gearList } from "../stores/Store";
     import { onMount } from "svelte/internal";
 
   export let gear: Gear
-  let index = 0 
+  export let index = 0 
   let searchString = " "
   // let items: any[] = []
   $: reformed = $gearList[index]
@@ -50,6 +50,12 @@
     return $gearList[index] = createEquip
   }
 
+  const handleSelect = (e: { detail: Gear; }) => {
+    console.log(e.detail)
+    gear = e.detail
+    $gearList[index] = gear
+  }
+
 
 </script>
 
@@ -58,20 +64,10 @@
     <Grid.Col span="{3}">
       <Text weight="bold" size="xl" m="xs">Autosearch Model</Text>
       <div>
-        <AutoComplete
-          bind:selectedItem="{gear}"
-          searchFunction="{asyncTest}"
-          placeholder="Search For Item Ex: 'Galaxy'"
-          labelFieldName="model"
-          delay="200"
-          create={true}
-          createText={"Item Doesn't exist, create one?"}
-          onCreate={handleCreateGear}
-          onChange={() => {
-              gear = {...gear, gearId: $gearList.length -1, items: []}
-              $gearList[gear.gearId] = gear
-              console.log($gearList)
-            }}
+        <Select 
+          loadOptions={asyncTest} 
+          on:select={handleSelect}
+          labelIdentifier={"model"}
         />
       </div>
     </Grid.Col>

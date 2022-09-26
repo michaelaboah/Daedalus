@@ -43,10 +43,10 @@
   <Stack align="stretch" justify="flex-start" spacing="xs">
       <div class="group {group.cssClass}">
         {JSON.stringify(group)}
-      {#each group.values as value}
+      {#each group.values as value, index}
         <div class="thing {group.cssClass}">
           {JSON.stringify(value)}
-          <EquipmentComponent bind:gear={value}/>
+          <EquipmentComponent bind:gear={value} {index}/>
         </div>
       {/each}
       </div>

@@ -8163,6 +8163,11 @@
     "sorcery" "^0.10.0"
     "strip-indent" "^3.0.0"
 
+"svelte-select@^4.4.7":
+  "integrity" "sha512-fIf9Z8rPI6F8naHZ9wjXT0Pv5gLyhdHAFkHFJnCfVVfELE8e82uOoF0xEVQP6Kir+b4Q5yOvNAzZ61WbSU6A0A=="
+  "resolved" "https://registry.npmjs.org/svelte-select/-/svelte-select-4.4.7.tgz"
+  "version" "4.4.7"
+
 "svelte-spa-router@^3.3.0":
   "integrity" "sha512-cwRNe7cxD43sCvSfEeaKiNZg3FCizGxeMcf7CPiWRP3jKXjEma3vxyyuDtPOam6nWbVxl9TNM3hlE/i87ZlqcQ=="
   "resolved" "https://registry.npmjs.org/svelte-spa-router/-/svelte-spa-router-3.3.0.tgz"
