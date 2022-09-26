@@ -4,12 +4,25 @@
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
   import { gearList } from "../stores/Store";
   const addGear = () => {
-    // let t: Gear = {...$gearList}
     //@ts-ignore
     $gearList = [...$gearList, buildGear($gearList.length -1)];
     console.log($gearList);
-  };
-  // let test = { ...$gearList.at(-1), quantity: 0, items: [] };
+  }
+
+
+
+
+
+  $: groups = $gearList.reduce((curr, val) => {
+      let group = curr.length ? curr[curr.length - 1] : undefined 
+      if (group && group.cssClass === `type-${val.category}`) {
+        group.values.push(val)
+      } else {
+        curr.push({ cssClass: `type-${val.category}`, values: [ val ] }) 
+      }
+      return curr
+    }, [])
+
 </script>
 
 <Header height="10" pb="4">
@@ -22,12 +35,21 @@
     </Grid.Col>
   </Grid>
 </Header>
-{#if $gearList.length !== 0}
+
+
+
+
+{#each groups as group}
   <Stack align="stretch" justify="flex-start" spacing="xs">
-    {#each $gearList as gear}
-    {gear.gearId}
-      <EquipmentComponent bind:gear/>
-    {/each}
+      <div class="group {group.cssClass}">
+        {JSON.stringify(group)}
+      {#each group.values as value}
+        <div class="thing {group.cssClass}">
+          {JSON.stringify(value)}
+          <EquipmentComponent bind:gear={value}/>
+        </div>
+      {/each}
+      </div>
   </Stack>
 {:else}
   <Center>
@@ -38,4 +60,20 @@
       </Text>
     </Paper>
   </Center>
-{/if}
+{/each}
+
+
+<style>
+	.group.type-Console {
+		border: 1px solid red;
+	}
+	.group.type-Processing {
+		border: 1px solid green;
+	}
+	.thing.type-Console {
+		color: red;
+	}
+	.thing.type-Processing {
+		color: green;
+	}
+</style>

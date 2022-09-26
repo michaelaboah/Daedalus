@@ -13,6 +13,7 @@
   //@ts-ignore
   import AutoComplete from 'simple-svelte-autocomplete'
   import { gearList } from "../stores/Store";
+    import { onMount } from "svelte/internal";
 
   export let gear: Gear
   let index = 0 
@@ -22,6 +23,10 @@
   // $: totalCost = reformed.quantity * reformed.cost
   // $: totalPower = reformed.quantity * reformed.powerDraw
   // $: totalItems = 0
+
+  onMount(() => {
+    searchString = ""
+  })
 
     
   const asyncTest = async () => {
