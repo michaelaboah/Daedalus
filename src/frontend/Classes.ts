@@ -60,7 +60,7 @@ export const buildItem = () => ({
   // box: new Box();
 });
 
-export type Gear = Equipment & { items: Item[]; gearId: number };
+export type Gear = Equipment & { items: Item[]; gearId: number; quantity: number };
 
 export const buildGear = (addId?: number) => ({
   createdAt: undefined,
@@ -76,5 +76,6 @@ export const buildGear = (addId?: number) => ({
   rackUnit: 0,
   frequencyRange: "",
   items: [],
+  quantity: 0,
   gearId: (addId ??= 0),
 });
