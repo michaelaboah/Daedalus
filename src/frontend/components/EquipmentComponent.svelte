@@ -1,7 +1,6 @@
 <style>
-  div :global(.autocomplete *) {
-    width: 25vw;
-    max-width: 100%;
+  .autocomplete {
+    margin-left: 1vw;
   }
 </style>
 
@@ -52,7 +51,7 @@
   <Grid cols="{12}" grow>
     <Grid.Col span="{3}">
       <Text weight="bold" size="xl" m="xs">Quick Search Model</Text>
-      <div>
+      <div class="autocomplete">
         <Select
           value="{null}"
           loadOptions="{asyncTest}"
@@ -81,7 +80,7 @@
       <Button on:click="{addItem}" disabled="{!gear.model}">Add Item</Button>
     </Grid.Col>
       {#each gear.items as { description, itemQuantity, publicNotes, privateNotes }}
-        <SimpleGrid cols={4} ml="lg" mb="lg">
+        <SimpleGrid cols={6} ml="lg" mb="lg">
           <TextInput label="Description" bind:value="{description}" />
           <NumberInput label="Quantity" min="{0}" on:change="{handleItemChange}" bind:value="{itemQuantity}" />
           <TextInput label="Public Notes" bind:value="{publicNotes}" />
