@@ -18,7 +18,7 @@
   export let index = 0;
   
   $: totalCost = gear.quantity * gear.cost
-  $: totalPower = gear.quantity * gear.powerDraw
+  $: totalPower = gear.quantity * (gear.powerDraw ??= 0)
 
   const asyncTest = async () => {
     const response = await AsyncFuzzyTextSearch({ variables: { fuzzySearch: gear.model } });
@@ -33,13 +33,12 @@
   const handleItemChange = () => {
     const sum = gear.items.map((item) => item.itemQuantity);
     gear.quantity = sum.reduce((partial, i) => partial + i, 0);
-    console.log(`Total Items: ${gear.quantity}`);
   };
 
-  const handleCreateGear = (newGear: Equipment) => {
-    let createEquip = buildEquipment();
-    return ($gearList[index] = createEquip);
-  };
+  // const handleCreateGear = (newGear: Equipment) => {
+  //   let createEquip = buildEquipment();
+  //   return ($gearList[index] = createEquip);
+  // };
 
   const handleSelect = (e: { detail: Equipment }) => {
     gear = {...gear, ...e.detail}

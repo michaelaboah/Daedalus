@@ -1,4 +1,4 @@
-import { app, dialog } from "electron";
+import { app, dialog, ipcMain } from "electron";
 import fs from "fs";
 import path from "path";
 import { mainWindow } from "./index";
@@ -25,11 +25,6 @@ export const template = [
               click() {
                 mainWindow.webContents.send("go-to-page", "#/PreferencesPage");
               },
-            },
-            {
-              click: () => mainWindow.webContents.send("get-projects"),
-              label: "Increment",
-              accelerator: "Cmd+2",
             },
             { type: "separator" },
             { role: "services" },
@@ -82,9 +77,9 @@ export const template = [
       { label: "Save", accelerator: "CommandOrControl+S" },
       {
         label: "Save As",
-        accelarator: "CommandOrControl+Shift+S",
+        accelarator: "CmdOrCtrl + Shift + s",
         click() {
-          saveAsFile();
+          mainWindow.webContents.send("start:save:project");
         },
       },
       {
@@ -179,6 +174,10 @@ export const template = [
 
 // *************************** Menu Functions **************************
 
+ipcMain.on("save:project", (_event, data) => {
+  saveAsFile(data);
+});
+
 export const openFile = async (): Promise<any> => {
   const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
     properties: ["openFile"],
@@ -203,7 +202,7 @@ export const saveAsFile = async (data?: any) => {
   const { canceled, filePath } = await dialog.showSaveDialog(mainWindow, {
     properties: ["createDirectory"],
     filters: [
-      { name: "Freyur", extensions: ["fyr"] },
+      { name: "Daedalus", extensions: ["dae"] },
       { name: "Json", extensions: ["json"] },
     ],
   });

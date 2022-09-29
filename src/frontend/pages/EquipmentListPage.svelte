@@ -1,5 +1,5 @@
 <style>
-  .group.type-Console {
+  /* .group.type-Console {
     border: 1px solid red;
   }
   .group.type-Processing {
@@ -10,7 +10,7 @@
   }
   .thing.type-Processing {
     color: green;
-  }
+  } */
 </style>
 
 <script lang="ts">
@@ -27,10 +27,10 @@
 
   $: groups = $gearList.reduce((curr, val) => {
     let group = curr.length ? curr[curr.length - 1] : undefined;
-    if (group && group.cssClass === `type-${val.category}`) {
+    if (group && group.category === `${val.category}`) {
       group.values.push(val);
     } else {
-      curr.push({ cssClass: `type-${val.category}`, values: [val] });
+      curr.push({ category: `${val.category}`, values: [val] });
     }
     return curr;
   }, []);
@@ -51,11 +51,11 @@
 
 {#each groups as group}
   <Stack align="stretch" justify="flex-start" spacing="xs">
-    <div class="group {group.cssClass}">
-      <EquipmentHeader categoryName="{group.cssClass}">
+    <div class="group {group.category}">
+      <EquipmentHeader categoryName="{group.category}">
         <br />
         {#each group.values as value, index (value)}
-          <div class="thing {group.cssClass}">
+          <div class="thing {group.category}">
             <EquipmentComponent bind:gear="{value}" index="{index}" />
           </div>
         {/each}

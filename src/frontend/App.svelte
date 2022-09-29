@@ -12,6 +12,9 @@
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
+  import { gearList } from "./stores/Store";
+
+  
   let isDark: boolean;
 
   (async () => {
@@ -22,6 +25,10 @@
     const persistData = await window.api.handleUserStorage("preferences");
     return persistData.darkmode;
   }
+
+  window.api.onSaveFile((event: any) => {
+    event.sender.send("save:project", $gearList)
+  })
 
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),
