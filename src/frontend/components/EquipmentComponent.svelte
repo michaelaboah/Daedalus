@@ -70,7 +70,7 @@
       <NumberInput bind:value="{gear.cost}" min="{0}" size="sm" />
     </Grid.Col>
     <Grid.Col span="{2}">
-      <Text weight="bold" size="xl" m="xs">Total Cost: ${totalCost}</Text>
+      <Text weight="bold" size="xl" m="xs" >Total Cost: ${totalCost}</Text>
     </Grid.Col>
     <Grid.Col span="{2}">
       <Text weight="bold" size="xl" m="xs">Total Power Draw: {totalPower}</Text>
@@ -80,7 +80,7 @@
     </Grid.Col>
       {#each gear.items as { description, itemQuantity, publicNotes, privateNotes }}
         <SimpleGrid cols={6} ml="lg" mb="lg">
-          <TextInput label="Description" bind:value="{description}" />
+          <TextInput label="Description" placeholder={"Main Processor"} bind:value="{description}" />
           <NumberInput label="Quantity" min="{0}" on:change="{handleItemChange}" bind:value="{itemQuantity}" />
           <TextInput label="Public Notes" bind:value="{publicNotes}" />
           <TextInput label="Private Notes" bind:value="{privateNotes}" />

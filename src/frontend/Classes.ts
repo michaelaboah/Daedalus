@@ -54,7 +54,7 @@ export type Item = {
 
 export const buildItem = () => ({
   description: "",
-  itemQuantity: 0,
+  itemQuantity: 1,
   publicNotes: "",
   privateNotes: "",
   // box: new Box();
@@ -75,7 +75,7 @@ export const buildGear = (addId?: number) => ({
   depth: 0,
   rackUnit: 0,
   frequencyRange: "",
-  items: [],
+  items: [buildItem()],
   quantity: 0,
   gearId: (addId ??= 0),
 });

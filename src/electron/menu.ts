@@ -174,10 +174,6 @@ export const template = [
 
 // *************************** Menu Functions **************************
 
-ipcMain.on("save:project", (_event, data) => {
-  saveAsFile(data);
-});
-
 export const openFile = async (): Promise<any> => {
   const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
     properties: ["openFile"],
@@ -193,7 +189,8 @@ export const openFile = async (): Promise<any> => {
     if (err) {
       return console.log(err);
     } else {
-      console.log(data);
+      console.log(JSON.parse(data.toString()));
+      mainWindow.webContents.send("load:project", JSON.parse(data.toString()));
     }
   });
 };
@@ -226,3 +223,9 @@ export const beforeQuit = (_data: any) => {
     }
   }
 };
+
+ipcMain.on("save:project", (_event, data) => {
+  saveAsFile(data);
+});
+
+ipcMain.handle("dialog:openFile", openFile);

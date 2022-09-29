@@ -12,14 +12,17 @@ export const API = {
     ipcRenderer.on("go-to-page", (_event_, args) => {
       callback(args);
     }),
-  sendToSvelte: (callback: (arg0: boolean) => void) =>
-    ipcRenderer.on("electron->svelte", (_event_, args) => {
-      callback(args);
-    }),
+  // sendToSvelte: (callback: (arg0: boolean) => void) =>
+  //   ipcRenderer.on("electron->svelte", (_event_, args) => {
+  //     callback(args);
+  //   }),
   print: (callback: (table: any) => void) =>
     ipcRenderer.on("printer", (_event, args) => {
       callback(args);
     }),
+
+  // Backend to Frontend
+  loadToFrontend: (callback: any) => ipcRenderer.on("load:project", callback),
 
   // OS Level Functions
 
