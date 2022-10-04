@@ -79,3 +79,11 @@ export const buildGear = (addId?: number) => ({
   quantity: 0,
   gearId: (addId ??= 0),
 });
+
+export type Project = {
+  name: string;
+  showImage: string | undefined;
+  designerStamp: string | undefined;
+};
+
+export const createProject = (): Project => ({} as Project);

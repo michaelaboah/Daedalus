@@ -77,7 +77,7 @@ export const template = [
       { label: "Save", accelerator: "CommandOrControl+S" },
       {
         label: "Save As",
-        accelarator: "CmdOrCtrl + Shift + s",
+        accelerator: "CmdOrCtrl + Shift + s",
         click() {
           mainWindow.webContents.send("start:save:project");
         },

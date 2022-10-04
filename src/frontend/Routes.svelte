@@ -11,11 +11,13 @@
   import Bye from "./pages/Bye.svelte";
   import EquipmentListPage from "./pages/EquipmentListPage.svelte";
   import PreferencesPage from "./pages/PreferencesPage.svelte";
+  import ProjectPage from "./pages/ProjectPage.svelte";
   const routes = {
     "/": MainMenu,
     "/Bye": Bye,
     "/EquipmentListPage": EquipmentListPage,
     "/PreferencesPage": PreferencesPage,
+    "/ProjectPage": ProjectPage,
   };
 </script>
 

@@ -64,9 +64,10 @@ specifiers:
   simple-svelte-autocomplete: ^2.4.0
   sqlite3: ^5.0.11
   subscriptions-transport-ws: ^0.11.0
-  svelte: ^3.49.0
+  svelte: ^3.50.1
   svelte-apollo: ^0.5.0
   svelte-check: ^2.2.0
+  svelte-droplet: ^0.2.0
   svelte-preprocess: ^4.7.3
   svelte-select: ^4.4.7
   svelte-spa-router: ^3.3.0
@@ -77,16 +78,16 @@ specifiers:
   typescript: ^4.3.4
 
 dependencies:
-  '@apollo/client': 3.6.10_6p36wxrbpbpppvp2zkkmdjuieq
+  '@apollo/client': 3.7.0_6p36wxrbpbpppvp2zkkmdjuieq
   '@mikro-orm/core': 5.4.2_rfbmrp4xlvwnoy2ufmu5ra3cim
-  '@mikro-orm/migrations': 5.4.2_3pf32ha7ovduqzt76pzvug2sze
+  '@mikro-orm/migrations': 5.4.2_ilp3jqsnkbcemz7z3psw5i5agm
   '@mikro-orm/sqlite': 5.4.2_32erfeycwkyvqeroqobrff5v74
   '@svelteuidev/composables': 0.7.3
   '@svelteuidev/core': 0.7.3_yafmw36jssbmmzusa55loxu4em
   '@svelteuidev/motion': 0.7.3_svelte@3.50.1
   '@svelteuidev/preprocessors': 0.7.3_svelte@3.50.1
   '@svelteuidev/prism': 0.7.3_pb4in5etdvl2f7df7sw55szuzu
-  apollo-link-token-refresh: 0.4.0_md4o7m6stbg2kpl3paix4fo3ae
+  apollo-link-token-refresh: 0.4.0_emvizpp4xvkvwvq4blkdw2lqq4
   class-validator: 0.13.2
   dotenv: 16.0.3
   electron-log: 4.4.8
@@ -107,7 +108,7 @@ devDependencies:
   '@graphql-codegen/typescript-operations': 2.4.0_graphql@15.7.2
   '@graphql-codegen/typescript-urql': 3.7.0_uiakrmibzyjojycqgq5qw35buq
   '@graphql-codegen/urql-svelte-operations-store': 1.3.0_uiakrmibzyjojycqgq5qw35buq
-  '@mikro-orm/cli': 5.4.2_xwjlyzb2lfotrk2yls6hew7f3i
+  '@mikro-orm/cli': 5.4.2_dmsikxefbg7ahuseicsaopvugy
   '@rollup/plugin-commonjs': 21.1.0_rollup@2.79.1
   '@rollup/plugin-node-resolve': 13.3.0_rollup@2.79.1
   '@rollup/plugin-typescript': 8.5.0_hafrwlgfjmvsm7253l3bfjzhnq
@@ -118,8 +119,8 @@ devDependencies:
   '@types/node': 17.0.45
   '@types/sqlite3': 3.1.8
   '@types/validator': 13.7.7
-  '@typescript-eslint/eslint-plugin': 5.38.1_c7qepppml3d4ahu5cnfwqe6ltq
-  '@typescript-eslint/parser': 5.38.1_ypn2ylkkyfa5i233caldtndbqa
+  '@typescript-eslint/eslint-plugin': 5.39.0_xyciw6oqjoiiono4dhv3uhn5my
+  '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
   clean-css: 5.3.1
   cross-env: 7.0.3
   electron: 16.2.8
@@ -144,10 +145,11 @@ devDependencies:
   rollup-plugin-svelte: 7.1.0_3j3zasnyq6cqs3hqscflv4du7a
   rollup-plugin-terser: 7.0.2_rollup@2.79.1
   simple-svelte-autocomplete: 2.4.0
-  sqlite3: 5.1.1
+  sqlite3: 5.1.2
   svelte: 3.50.1
-  svelte-apollo: 0.5.0_4wy42zyprsu6mqny7il66efsq4
+  svelte-apollo: 0.5.0_dazi5idszung63y5alhnubj2hi
   svelte-check: 2.9.1_ip6t7gbsntalqsv24txi5sqe6u
+  svelte-droplet: 0.2.0
   svelte-preprocess: 4.10.7_u4iw5w2ir6rz2qc6xbgyfkliw4
   terser: 5.15.0
   ts-jest: 27.1.5_l3u6ka6x73lqye3ea4q6yelf2e
@@ -168,8 +170,8 @@ packages:
       '@jridgewell/trace-mapping': 0.3.15
     dev: true
 
-  /@apollo/client/3.6.10_6p36wxrbpbpppvp2zkkmdjuieq:
-    resolution: {integrity: sha512-zow8+Z7Wz8OeH+8bhIxqPtqqXY87APoUbXlaXD/rgs3O9ijSyHSbUt3E4DnkLNP9q3+/OsRWY+Mx+WxkQQ4oig==}
+  /@apollo/client/3.7.0_6p36wxrbpbpppvp2zkkmdjuieq:
+    resolution: {integrity: sha512-hp4OvrH1ZIQACRYcIrh/C0WFnY7IM7G6nlTpC8DSTEWxfZQ2kvpvDY0I/hYmCs0oAVrg26g3ANEdOzGWTcYbPg==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -195,6 +197,7 @@ packages:
       hoist-non-react-statics: 3.3.2
       optimism: 0.16.1
       prop-types: 15.8.1
+      response-iterator: 0.2.6
       subscriptions-transport-ws: 0.11.0_graphql@15.7.2
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -1829,7 +1832,7 @@ packages:
       - encoding
       - supports-color
 
-  /@mikro-orm/cli/5.4.2_xwjlyzb2lfotrk2yls6hew7f3i:
+  /@mikro-orm/cli/5.4.2_dmsikxefbg7ahuseicsaopvugy:
     resolution: {integrity: sha512-/y1zeV2Q72eMEP3VfcQhon7HJ1I6sHsWWhAR1gwpCIrQ10hgcsgMk6r6VObMYfqPxSSMU9+S9WRG6mp1L7UMAQ==}
     engines: {node: '>= 14.0.0'}
     hasBin: true
@@ -1867,8 +1870,8 @@ packages:
         optional: true
     dependencies:
       '@mikro-orm/core': 5.4.2_rfbmrp4xlvwnoy2ufmu5ra3cim
-      '@mikro-orm/knex': 5.4.2_jujz3qkyrcwsd25o5tth6nd6iu
-      '@mikro-orm/migrations': 5.4.2_3pf32ha7ovduqzt76pzvug2sze
+      '@mikro-orm/knex': 5.4.2_u3s66m6zu2e5cehz7smgmz3l4m
+      '@mikro-orm/migrations': 5.4.2_ilp3jqsnkbcemz7z3psw5i5agm
       '@mikro-orm/sqlite': 5.4.2_32erfeycwkyvqeroqobrff5v74
       fs-extra: 10.1.0
       tsconfig-paths: 4.1.0
@@ -1922,7 +1925,7 @@ packages:
       '@mikro-orm/sqlite':
         optional: true
     dependencies:
-      '@mikro-orm/migrations': 5.4.2_3pf32ha7ovduqzt76pzvug2sze
+      '@mikro-orm/migrations': 5.4.2_ilp3jqsnkbcemz7z3psw5i5agm
       '@mikro-orm/sqlite': 5.4.2_32erfeycwkyvqeroqobrff5v74
       acorn-loose: 8.3.0
       acorn-walk: 8.2.0
@@ -1964,7 +1967,7 @@ packages:
         optional: true
     dependencies:
       '@mikro-orm/core': 5.4.2_rfbmrp4xlvwnoy2ufmu5ra3cim
-      '@mikro-orm/migrations': 5.4.2_3pf32ha7ovduqzt76pzvug2sze
+      '@mikro-orm/migrations': 5.4.2_ilp3jqsnkbcemz7z3psw5i5agm
       fs-extra: 10.1.0
       knex: 2.3.0_sqlite3@5.0.11
       sqlite3: 5.0.11
@@ -1974,7 +1977,7 @@ packages:
       - supports-color
       - tedious
 
-  /@mikro-orm/knex/5.4.2_jujz3qkyrcwsd25o5tth6nd6iu:
+  /@mikro-orm/knex/5.4.2_u3s66m6zu2e5cehz7smgmz3l4m:
     resolution: {integrity: sha512-KOasr9arBAwIyv+MkczA43uS0yu0HoC1axzqwgC1ua+Sw4xMtzospPxeWQyjA2qjqkPnkSST7Wya+CS0NZmc2g==}
     engines: {node: '>= 14.0.0'}
     peerDependencies:
@@ -2006,26 +2009,26 @@ packages:
         optional: true
     dependencies:
       '@mikro-orm/core': 5.4.2_rfbmrp4xlvwnoy2ufmu5ra3cim
-      '@mikro-orm/migrations': 5.4.2_3pf32ha7ovduqzt76pzvug2sze
+      '@mikro-orm/migrations': 5.4.2_ilp3jqsnkbcemz7z3psw5i5agm
       fs-extra: 10.1.0
-      knex: 2.3.0_sqlite3@5.1.1
-      sqlite3: 5.1.1
+      knex: 2.3.0_sqlite3@5.1.2
+      sqlite3: 5.1.2
       sqlstring: 2.3.3
     transitivePeerDependencies:
       - pg-native
       - supports-color
       - tedious
 
-  /@mikro-orm/migrations/5.4.2_3pf32ha7ovduqzt76pzvug2sze:
+  /@mikro-orm/migrations/5.4.2_ilp3jqsnkbcemz7z3psw5i5agm:
     resolution: {integrity: sha512-eXy8vaSrMfmUkjm4yBDle5SA80dL3csIyuP3sp/wmKMxKmzMUXX6CUyNy6kahplOpnjhplFy9uMzFg2fQfQV+g==}
     engines: {node: '>= 14.0.0'}
     peerDependencies:
       '@mikro-orm/core': ^5.0.0
     dependencies:
       '@mikro-orm/core': 5.4.2_rfbmrp4xlvwnoy2ufmu5ra3cim
-      '@mikro-orm/knex': 5.4.2_jujz3qkyrcwsd25o5tth6nd6iu
+      '@mikro-orm/knex': 5.4.2_u3s66m6zu2e5cehz7smgmz3l4m
       fs-extra: 10.1.0
-      knex: 2.3.0_sqlite3@5.1.1
+      knex: 2.3.0_sqlite3@5.1.2
       umzug: 3.2.1
     transitivePeerDependencies:
       - '@mikro-orm/entity-generator'
@@ -2057,7 +2060,7 @@ packages:
     dependencies:
       '@mikro-orm/core': 5.4.2_rfbmrp4xlvwnoy2ufmu5ra3cim
       '@mikro-orm/knex': 5.4.2_6xy66cntsxnb2kndlc757q65v4
-      '@mikro-orm/migrations': 5.4.2_3pf32ha7ovduqzt76pzvug2sze
+      '@mikro-orm/migrations': 5.4.2_ilp3jqsnkbcemz7z3psw5i5agm
       fs-extra: 10.1.0
       sqlite3: 5.0.11
       sqlstring-sqlite: 0.1.1
@@ -2563,8 +2566,8 @@ packages:
       '@types/yargs-parser': 21.0.0
     dev: true
 
-  /@typescript-eslint/eslint-plugin/5.38.1_c7qepppml3d4ahu5cnfwqe6ltq:
-    resolution: {integrity: sha512-ky7EFzPhqz3XlhS7vPOoMDaQnQMn+9o5ICR9CPr/6bw8HrFkzhMSxuA3gRfiJVvs7geYrSeawGJjZoZQKCOglQ==}
+  /@typescript-eslint/eslint-plugin/5.39.0_xyciw6oqjoiiono4dhv3uhn5my:
+    resolution: {integrity: sha512-xVfKOkBm5iWMNGKQ2fwX5GVgBuHmZBO1tCRwXmY5oAIsPscfwm2UADDuNB8ZVYCtpQvJK4xpjrK7jEhcJ0zY9A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/parser': ^5.0.0
@@ -2574,10 +2577,10 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.38.1_ypn2ylkkyfa5i233caldtndbqa
-      '@typescript-eslint/scope-manager': 5.38.1
-      '@typescript-eslint/type-utils': 5.38.1_ypn2ylkkyfa5i233caldtndbqa
-      '@typescript-eslint/utils': 5.38.1_ypn2ylkkyfa5i233caldtndbqa
+      '@typescript-eslint/parser': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
+      '@typescript-eslint/scope-manager': 5.39.0
+      '@typescript-eslint/type-utils': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
+      '@typescript-eslint/utils': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       debug: 4.3.4
       eslint: 8.24.0
       ignore: 5.2.0
@@ -2589,8 +2592,8 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/parser/5.38.1_ypn2ylkkyfa5i233caldtndbqa:
-    resolution: {integrity: sha512-LDqxZBVFFQnQRz9rUZJhLmox+Ep5kdUmLatLQnCRR6523YV+XhRjfYzStQ4MheFA8kMAfUlclHSbu+RKdRwQKw==}
+  /@typescript-eslint/parser/5.39.0_ypn2ylkkyfa5i233caldtndbqa:
+    resolution: {integrity: sha512-PhxLjrZnHShe431sBAGHaNe6BDdxAASDySgsBCGxcBecVCi8NQWxQZMcizNA4g0pN51bBAn/FUfkWG3SDVcGlA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
@@ -2599,9 +2602,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/scope-manager': 5.38.1
-      '@typescript-eslint/types': 5.38.1
-      '@typescript-eslint/typescript-estree': 5.38.1_typescript@4.8.4
+      '@typescript-eslint/scope-manager': 5.39.0
+      '@typescript-eslint/types': 5.39.0
+      '@typescript-eslint/typescript-estree': 5.39.0_typescript@4.8.4
       debug: 4.3.4
       eslint: 8.24.0
       typescript: 4.8.4
@@ -2609,16 +2612,16 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/scope-manager/5.38.1:
-    resolution: {integrity: sha512-BfRDq5RidVU3RbqApKmS7RFMtkyWMM50qWnDAkKgQiezRtLKsoyRKIvz1Ok5ilRWeD9IuHvaidaLxvGx/2eqTQ==}
+  /@typescript-eslint/scope-manager/5.39.0:
+    resolution: {integrity: sha512-/I13vAqmG3dyqMVSZPjsbuNQlYS082Y7OMkwhCfLXYsmlI0ca4nkL7wJ/4gjX70LD4P8Hnw1JywUVVAwepURBw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': 5.38.1
-      '@typescript-eslint/visitor-keys': 5.38.1
+      '@typescript-eslint/types': 5.39.0
+      '@typescript-eslint/visitor-keys': 5.39.0
     dev: true
 
-  /@typescript-eslint/type-utils/5.38.1_ypn2ylkkyfa5i233caldtndbqa:
-    resolution: {integrity: sha512-UU3j43TM66gYtzo15ivK2ZFoDFKKP0k03MItzLdq0zV92CeGCXRfXlfQX5ILdd4/DSpHkSjIgLLLh1NtkOJOAw==}
+  /@typescript-eslint/type-utils/5.39.0_ypn2ylkkyfa5i233caldtndbqa:
+    resolution: {integrity: sha512-KJHJkOothljQWzR3t/GunL0TPKY+fGJtnpl+pX+sJ0YiKTz3q2Zr87SGTmFqsCMFrLt5E0+o+S6eQY0FAXj9uA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '*'
@@ -2627,8 +2630,8 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/typescript-estree': 5.38.1_typescript@4.8.4
-      '@typescript-eslint/utils': 5.38.1_ypn2ylkkyfa5i233caldtndbqa
+      '@typescript-eslint/typescript-estree': 5.39.0_typescript@4.8.4
+      '@typescript-eslint/utils': 5.39.0_ypn2ylkkyfa5i233caldtndbqa
       debug: 4.3.4
       eslint: 8.24.0
       tsutils: 3.21.0_typescript@4.8.4
@@ -2637,13 +2640,13 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/types/5.38.1:
-    resolution: {integrity: sha512-QTW1iHq1Tffp9lNfbfPm4WJabbvpyaehQ0SrvVK2yfV79SytD9XDVxqiPvdrv2LK7DGSFo91TB2FgWanbJAZXg==}
+  /@typescript-eslint/types/5.39.0:
+    resolution: {integrity: sha512-gQMZrnfEBFXK38hYqt8Lkwt8f4U6yq+2H5VDSgP/qiTzC8Nw8JO3OuSUOQ2qW37S/dlwdkHDntkZM6SQhKyPhw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@typescript-eslint/typescript-estree/5.38.1_typescript@4.8.4:
-    resolution: {integrity: sha512-99b5e/Enoe8fKMLdSuwrfH/C0EIbpUWmeEKHmQlGZb8msY33qn1KlkFww0z26o5Omx7EVjzVDCWEfrfCDHfE7g==}
+  /@typescript-eslint/typescript-estree/5.39.0_typescript@4.8.4:
+    resolution: {integrity: sha512-qLFQP0f398sdnogJoLtd43pUgB18Q50QSA+BTE5h3sUxySzbWDpTSdgt4UyxNSozY/oDK2ta6HVAzvGgq8JYnA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -2651,8 +2654,8 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/types': 5.38.1
-      '@typescript-eslint/visitor-keys': 5.38.1
+      '@typescript-eslint/types': 5.39.0
+      '@typescript-eslint/visitor-keys': 5.39.0
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
@@ -2663,16 +2666,16 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils/5.38.1_ypn2ylkkyfa5i233caldtndbqa:
-    resolution: {integrity: sha512-oIuUiVxPBsndrN81oP8tXnFa/+EcZ03qLqPDfSZ5xIJVm7A9V0rlkQwwBOAGtrdN70ZKDlKv+l1BeT4eSFxwXA==}
+  /@typescript-eslint/utils/5.39.0_ypn2ylkkyfa5i233caldtndbqa:
+    resolution: {integrity: sha512-+DnY5jkpOpgj+EBtYPyHRjXampJfC0yUZZzfzLuUWVZvCuKqSdJVC8UhdWipIw7VKNTfwfAPiOWzYkAwuIhiAg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       '@types/json-schema': 7.0.11
-      '@typescript-eslint/scope-manager': 5.38.1
-      '@typescript-eslint/types': 5.38.1
-      '@typescript-eslint/typescript-estree': 5.38.1_typescript@4.8.4
+      '@typescript-eslint/scope-manager': 5.39.0
+      '@typescript-eslint/types': 5.39.0
+      '@typescript-eslint/typescript-estree': 5.39.0_typescript@4.8.4
       eslint: 8.24.0
       eslint-scope: 5.1.1
       eslint-utils: 3.0.0_eslint@8.24.0
@@ -2681,11 +2684,11 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/visitor-keys/5.38.1:
-    resolution: {integrity: sha512-bSHr1rRxXt54+j2n4k54p4fj8AHJ49VDWtjpImOpzQj4qjAiOpPni+V1Tyajh19Api1i844F757cur8wH3YvOA==}
+  /@typescript-eslint/visitor-keys/5.39.0:
+    resolution: {integrity: sha512-yyE3RPwOG+XJBLrhvsxAidUgybJVQ/hG8BhiJo0k8JSAYfk/CshVcxf0HwP4Jt7WZZ6vLmxdo1p6EyN3tzFTkg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': 5.38.1
+      '@typescript-eslint/types': 5.39.0
       eslint-visitor-keys: 3.3.0
     dev: true
 
@@ -2924,13 +2927,13 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /apollo-link-token-refresh/0.4.0_md4o7m6stbg2kpl3paix4fo3ae:
+  /apollo-link-token-refresh/0.4.0_emvizpp4xvkvwvq4blkdw2lqq4:
     resolution: {integrity: sha512-5P5nH//asgoz01r6tUYiBbHIuVwEEsBmA9WJ8LEiNtZcOq8AXdfR8aV4Pw/B86P3lRi1ykd8xyZLCHpLro9v+Q==}
     peerDependencies:
       '@apollo/client': ^3.0.0
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@apollo/client': 3.6.10_6p36wxrbpbpppvp2zkkmdjuieq
+      '@apollo/client': 3.7.0_6p36wxrbpbpppvp2zkkmdjuieq
       graphql: 15.7.2
     dev: false
 
@@ -3270,7 +3273,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001414
-      electron-to-chromium: 1.4.268
+      electron-to-chromium: 1.4.270
       node-releases: 2.0.6
       update-browserslist-db: 1.0.9_browserslist@4.21.4
     dev: true
@@ -3651,6 +3654,15 @@ packages:
       wrap-ansi: 7.0.0
     dev: true
 
+  /cliui/8.0.1:
+    resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      string-width: 4.2.3
+      strip-ansi: 6.0.1
+      wrap-ansi: 7.0.0
+    dev: true
+
   /clone-response/1.0.3:
     resolution: {integrity: sha512-ROoL94jJH2dUVML2Y/5PEDNaSHgeOdSDicUyS7izcF63G6sTc/FTjLub4b8Il9S8S0beOfYt0TaA5qvFK+w0wA==}
     dependencies:
@@ -3736,8 +3748,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /commander/9.4.0:
-    resolution: {integrity: sha512-sRPT+umqkz90UA8M1yqYfnHlZA7fF6nSphDtxeywPZ49ysjxDQybzk13CL+mXekDRG92skbcqCLVovuCusNmFw==}
+  /commander/9.4.1:
+    resolution: {integrity: sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==}
     engines: {node: ^12.20.0 || >=14}
 
   /comment-parser/1.3.0:
@@ -4234,7 +4246,7 @@ packages:
       lazy-val: 1.0.5
       read-config-file: 6.2.0
       update-notifier: 5.1.0
-      yargs: 17.5.1
+      yargs: 17.6.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4280,8 +4292,8 @@ packages:
       type-fest: 2.19.0
     dev: false
 
-  /electron-to-chromium/1.4.268:
-    resolution: {integrity: sha512-PO90Bv++vEzdln+eA9qLg1IRnh0rKETus6QkTzcFm5P3Wg3EQBZud5dcnzkpYXuIKWBjKe5CO8zjz02cicvn1g==}
+  /electron-to-chromium/1.4.270:
+    resolution: {integrity: sha512-KNhIzgLiJmDDC444dj9vEOpZEgsV96ult9Iff98Vanumn+ShJHd5se8aX6KeVxdc0YQeqdrezBZv89rleDbvSg==}
     dev: true
 
   /electron-updater/4.6.5:
@@ -4551,7 +4563,7 @@ packages:
       import-fresh: 3.3.0
       imurmurhash: 0.1.4
       is-glob: 4.0.3
-      js-sdsl: 4.1.4
+      js-sdsl: 4.1.5
       js-yaml: 4.1.0
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
@@ -5160,7 +5172,7 @@ packages:
     peerDependencies:
       graphql: ^16.0.1
     dependencies:
-      '@apollo/client': 3.6.10_6p36wxrbpbpppvp2zkkmdjuieq
+      '@apollo/client': 3.7.0_6p36wxrbpbpppvp2zkkmdjuieq
       '@graphql-codegen/plugin-helpers': 2.7.1_graphql@15.7.2
       '@graphql-codegen/visitor-plugin-common': 2.12.1_graphql@15.7.2
       camel-case: 4.1.2
@@ -6389,8 +6401,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /js-sdsl/4.1.4:
-    resolution: {integrity: sha512-Y2/yD55y5jteOAmY50JbUZYwk3CP3wnLPEZnlR1w9oKhITrBEtAxwuWKebFf8hMrPMgbYwFoWK/lH2sBkErELw==}
+  /js-sdsl/4.1.5:
+    resolution: {integrity: sha512-08bOAKweV2NUC1wqTtf3qZlnpOX/R2DU9ikpjOHs0H+ibQv3zpncVQg6um4uYtRtrwIX8M4Nh3ytK4HGlYAq7Q==}
     dev: true
 
   /js-tokens/4.0.0:
@@ -6607,7 +6619,7 @@ packages:
         optional: true
     dependencies:
       colorette: 2.0.19
-      commander: 9.4.0
+      commander: 9.4.1
       debug: 4.3.4
       escalade: 3.1.1
       esm: 3.2.25
@@ -6624,7 +6636,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /knex/2.3.0_sqlite3@5.1.1:
+  /knex/2.3.0_sqlite3@5.1.2:
     resolution: {integrity: sha512-WMizPaq9wRMkfnwKXKXgBZeZFOSHGdtoSz5SaLAVNs3WRDfawt9O89T4XyH52PETxjV8/kRk0Yf+8WBEP/zbYw==}
     engines: {node: '>=12'}
     hasBin: true
@@ -6653,7 +6665,7 @@ packages:
         optional: true
     dependencies:
       colorette: 2.0.19
-      commander: 9.4.0
+      commander: 9.4.1
       debug: 4.3.4
       escalade: 3.1.1
       esm: 3.2.25
@@ -6664,7 +6676,7 @@ packages:
       pg-connection-string: 2.5.0
       rechoir: 0.8.0
       resolve-from: 5.0.0
-      sqlite3: 5.1.1
+      sqlite3: 5.1.2
       tarn: 3.0.2
       tildify: 2.0.0
     transitivePeerDependencies:
@@ -8085,6 +8097,10 @@ packages:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
+  /response-iterator/0.2.6:
+    resolution: {integrity: sha512-pVzEEzrsg23Sh053rmDUvLSkGXluZio0qu8VT6ukrYuvtjVfCbDZH9d6PGXb8HZfzdNZt8feXv/jvUzlhRgLnw==}
+    engines: {node: '>=0.8'}
+
   /responselike/1.0.2:
     resolution: {integrity: sha512-/Fpe5guzJk1gPqdJLJR5u7eG/gNY4nImjbRDaVWVMRhne55TCmj2i9Q+54PBRfatRC8v/rIiv9BN0pMd9OV5EQ==}
     dependencies:
@@ -8441,13 +8457,13 @@ packages:
     dependencies:
       agent-base: 6.0.2
       debug: 4.3.4
-      socks: 2.7.0
+      socks: 2.7.1
     transitivePeerDependencies:
       - supports-color
     optional: true
 
-  /socks/2.7.0:
-    resolution: {integrity: sha512-scnOe9y4VuiNUULJN72GrM26BNOjVsfPXI+j+98PkyEfsIXroa5ofyjT+FzGvn/xHs73U2JtoBYAVx9Hl4quSA==}
+  /socks/2.7.1:
+    resolution: {integrity: sha512-7maUZy1N7uo6+WVEX6psASxtNlKaNVMlGQKkG/63nEDdLOWNbiUMoLK7X4uYoLhQstau72mLgfEWcXcwsaHbYQ==}
     engines: {node: '>= 10.13.0', npm: '>= 3.0.0'}
     dependencies:
       ip: 2.0.0
@@ -8543,8 +8559,8 @@ packages:
       - encoding
       - supports-color
 
-  /sqlite3/5.1.1:
-    resolution: {integrity: sha512-mMinkrQr/LKJqFiFF+AF7imPSzRCCpTCreusZO3D/ssJHVjZOrbu2Caz+zPH5KTmGGXBxXMGSRDssL+44CLxvg==}
+  /sqlite3/5.1.2:
+    resolution: {integrity: sha512-D0Reg6pRWAFXFUnZKsszCI67tthFD8fGPewRddDCX6w4cYwz3MbvuwRICbL+YQjBAh9zbw+lJ/V9oC8nG5j6eg==}
     requiresBuild: true
     peerDependenciesMeta:
       node-gyp:
@@ -8784,14 +8800,14 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /svelte-apollo/0.5.0_4wy42zyprsu6mqny7il66efsq4:
+  /svelte-apollo/0.5.0_dazi5idszung63y5alhnubj2hi:
     resolution: {integrity: sha512-B4RoSAGGeuQS8pgoo5wQ+41DonoEewHkcx6qH6zjsd2nOZNNVETVRLleTph9rRmHuCtXZxvzupNfthWH+lG+9g==}
     peerDependencies:
       '@apollo/client': ^3
       graphql: '*'
       svelte: ^3
     dependencies:
-      '@apollo/client': 3.6.10_6p36wxrbpbpppvp2zkkmdjuieq
+      '@apollo/client': 3.7.0_6p36wxrbpbpppvp2zkkmdjuieq
       graphql: 15.7.2
       svelte: 3.50.1
     dev: true
@@ -8822,6 +8838,10 @@ packages:
       - sass
       - stylus
       - sugarss
+    dev: true
+
+  /svelte-droplet/0.2.0:
+    resolution: {integrity: sha512-HuEMnepHcJEPJCkcO6jE85Ikl2tozxfsgagpYGGH36OQxoLwW+T/rI04IhERnFXDZFQt1MQPrujEaO1LHXojbA==}
     dev: true
 
   /svelte-preprocess/4.10.7_u4iw5w2ir6rz2qc6xbgyfkliw4:
@@ -9734,6 +9754,19 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       cliui: 7.0.4
+      escalade: 3.1.1
+      get-caller-file: 2.0.5
+      require-directory: 2.1.1
+      string-width: 4.2.3
+      y18n: 5.0.8
+      yargs-parser: 21.1.1
+    dev: true
+
+  /yargs/17.6.0:
+    resolution: {integrity: sha512-8H/wTDqlSwoSnScvV2N/JHfLWOKuh5MVla9hqLjK3nsfyy6Y4kDSYSvkU5YCUEPOSnRXfIyx3Sq+B/IWudTo4g==}
+    engines: {node: '>=12'}
+    dependencies:
+      cliui: 8.0.1
       escalade: 3.1.1
       get-caller-file: 2.0.5
       require-directory: 2.1.1
