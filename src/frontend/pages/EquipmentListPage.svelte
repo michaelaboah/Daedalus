@@ -15,6 +15,7 @@
 
 <script>
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
+  import { Box, Title } from "@svelteuidev/core";
   import { buildGear } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
   import EquipmentHeader from "../components/EquipmentHeader.svelte";
@@ -52,14 +53,19 @@
 {#each groups as group}
   <Stack align="stretch" justify="flex-start" spacing="xs">
     <div class="group {group.category}">
-      <EquipmentHeader categoryName="{group.category}">
-        <br />
-        {#each group.values as value, index (value)}
-          <div class="thing {group.category}">
-            <EquipmentComponent bind:gear="{value}" index="{index}" />
-          </div>
-        {/each}
-      </EquipmentHeader>
+      <Box css="{{ backgroundColor: '$cyan100' }}">
+        <Stack>
+          <Title order="{3}">{categoryName}</Title>
+          <slot />
+        </Stack>
+      </Box>
+      <br />
+      {#each group.values as value, index (value)}
+        <!-- <div class="thing {group.category}"> -->
+        <EquipmentComponent bind:gear="{value}" index="{index}" />
+        <!-- </div> -->
+      {/each}
+      <!-- </EquipmentHeader> -->
     </div>
   </Stack>
 {:else}

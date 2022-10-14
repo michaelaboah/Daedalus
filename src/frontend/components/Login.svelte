@@ -10,7 +10,7 @@
   let mounted = false;
   let isRemembered: boolean;
   let reference: HTMLElement;
-  let rest: any
+  let rest: any;
   onMount(async () => {
     const userData = await window.api.handleUserStorage("preferences");
     isRemembered = userData.rememberMe;
@@ -67,7 +67,7 @@
 <Box ml="6">
   <InputWrapper label="Login Credentials" description="Please enter your username and password" size="lg">
     <Input bind:value="{loginOptions.email}" placeholder="Enter: Email" />
-    <Input bind:value="{loginOptions.password}" placeholder="Enter: Password" type="password" {...rest}/>
+    <Input bind:value="{loginOptions.password}" placeholder="Enter: Password" type="password" {...rest} />
     <Button bind:element="{reference}" on:click="{() => sumbitLogin(loginOptions)}" {...rest}>Login</Button>
   </InputWrapper>
   <Popper

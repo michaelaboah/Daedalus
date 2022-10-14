@@ -1,8 +1,7 @@
 <script lang="ts">
-  import { Notification, Footer, } from "@svelteuidev/core";
+  import { Notification, Footer } from "@svelteuidev/core";
   import { Check, Cross2 } from "radix-icons-svelte";
   import { setAccessToken } from "../utils/accessToken";
-
 
   const response = fetch("http://localhost:4000/refresh_token", {
     method: "POST",
@@ -16,8 +15,8 @@
   let isNotified: boolean = true;
 
   setTimeout(() => {
-    isNotified = false
-  }, 5000)
+    isNotified = false;
+  }, 5000);
 </script>
 
 <Footer height="10" fixed>

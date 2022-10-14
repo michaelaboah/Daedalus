@@ -6,8 +6,7 @@
 </style>
 
 <script lang="ts">
-  import { prodInfo } from '../stores/Store'
-  
+  import { prodInfo } from "../stores/Store";
 </script>
 
 <header>

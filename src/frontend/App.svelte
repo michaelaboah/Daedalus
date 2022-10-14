@@ -14,7 +14,7 @@
   import Routes from "./Routes.svelte";
   import { currentFile, loadProject } from "./stores/Store";
   import type { Project } from "./Classes";
-  import { project } from "./stores/Store"
+  import { project } from "./stores/Store";
   let isDark: boolean;
 
   (async () => {
@@ -25,9 +25,9 @@
     const persistData = await window.api.handleUserStorage("preferences");
     return persistData.darkmode;
   }
-  window.api.loadToFrontend((_event: any, loadedProject: {data: Project, filepath: string}) => {
+  window.api.loadToFrontend((_event: any, loadedProject: { data: Project; filepath: string }) => {
     if (loadedProject.data) {
-      loadProject(loadedProject.data)
+      loadProject(loadedProject.data);
       $currentFile = loadedProject.filepath;
     } else {
       window.api.dialogError("File load error", "Cannot override current items in Equipment List");
@@ -36,16 +36,18 @@
 
   window.api.onSaveFile((event: any) => {
     if ($currentFile !== "") {
-      event.sender.send("save:project", $project, $currentFile);      
+      event.sender.send("save:project", $project, $currentFile);
     } else {
-      window.api.dialogError("Problem Saving", "There is no current project file selected. \n Please load an existing file or save a new one.")
+      window.api.dialogError(
+        "Problem Saving",
+        "There is no current project file selected. \n Please load an existing file or save a new one."
+      );
     }
   });
 
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),
   });
-
 </script>
 
 <SvelteUIProvider withGlobalStyles themeObserver="{isDark ? 'dark' : 'light'}">

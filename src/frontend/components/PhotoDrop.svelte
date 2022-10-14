@@ -44,9 +44,9 @@
   ml="xl"
   css="{{ p: '$6', borderColor: '$black', borderBlockStyle: 'solid', bc: 'LightGrey', width: 'max-content' }}"
 >
-  <Group position="apart" noWrap >
+  <Group position="apart" noWrap>
     <Text align="right" size="xl" weight="{'semibold'}" mb="{'md'}">{dropZoneName}</Text>
-    <CloseButton iconSize="xl" on:click={() => image = undefined}/>
+    <CloseButton iconSize="xl" on:click="{() => (image = undefined)}" />
   </Group>
 
   <FileDrop max="{1}" let:droppable handleFiles="{handleFiles}" acceptedMimes="{acceptedMimes}">
