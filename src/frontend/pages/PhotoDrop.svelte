@@ -18,12 +18,12 @@
     Text,
     // Tooltip,
   } from "@svelteuidev/core";
-  let rest: any
+  let rest: any;
   export let image: string | undefined;
-  export let dropZoneName: string = "Image"
+  export let dropZoneName: string = "Image";
   export let acceptedMimes = ["image/webp", "image/jpeg", "image/png", "image/gif", "image/svg+xml"];
   let alt = "";
-  
+
   let dropZonePadding: string | undefined;
   const photoReader = new FileReader();
 
@@ -47,9 +47,17 @@
 
   <FileDrop max="{1}" let:droppable handleFiles="{handleFiles}" acceptedMimes="{acceptedMimes}">
     <div class="zone" class:droppable style="--theme-pad: {dropZonePadding}">
-        {#if image}
+      {#if image}
         <Center inline="{false}">
-          <Image bind:src="{image}" fit="contain" width="{400}" height="{300}" {alt} usePlaceholder={false} {...rest}/>
+          <Image
+            bind:src="{image}"
+            fit="contain"
+            width="{400}"
+            height="{300}"
+            alt="{alt}"
+            usePlaceholder="{false}"
+            {...rest}
+          />
         </Center>
       {:else}
         <Text align="center" size="xl">Drag and Drop 1 Image</Text>

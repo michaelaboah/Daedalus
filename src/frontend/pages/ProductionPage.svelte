@@ -13,7 +13,7 @@
     // Tooltip,
   } from "@svelteuidev/core";
   import { prodInfo } from "../stores/Store";
-  const size = "lg"
+  const size = "lg";
 
   const positions = [
     { label: "Associate Designer", tuple: ($prodInfo.associate ??= ["", false]) },
@@ -28,7 +28,7 @@
 <Box>
   <Title mb="xl">Production Configuration</Title>
   <SimpleGrid cols="{2}" ml="lg">
-    <InputWrapper label="{''}" labelElement="{undefined}" {size}>
+    <InputWrapper label="{''}" labelElement="{undefined}" size="{size}">
       <Group>
         {#each positions as { label, tuple: [_vari, bool] }}
           <Checkbox bind:checked="{bool}" label="{label}" />
@@ -41,36 +41,36 @@
         placeholder="WALL-E"
         label="Production or Show name: "
         bind:value="{$prodInfo.productionName}"
-        {size}
+        size="{size}"
       />
       <SimpleGrid cols="{3}">
-        <TextInput placeholder="Ben Burtt" label="Designer: " bind:value="{$prodInfo.designer}" {size} />
+        <TextInput placeholder="Ben Burtt" label="Designer: " bind:value="{$prodInfo.designer}" size="{size}" />
         <TextInput
           placeholder="(123)-456-7890 "
           label="Designer Phone #: "
           bind:value="{$prodInfo.designerPhone}"
-          {size}
+          size="{size}"
         />
         <TextInput
           placeholder="Ben-Burtt@wall-eve.com"
           label="Designer Email: "
           bind:value="{$prodInfo.designerEmail}"
-          {size}
+          size="{size}"
         />
 
         {#each positions as { label, tuple: [vari, bool] }}
           {#if bool}
-            <TextInput label="{label + ': '}" bind:value="{vari}" {size} />
+            <TextInput label="{label + ': '}" bind:value="{vari}" size="{size}" />
           {/if}
         {/each}
       </SimpleGrid>
     </InputWrapper>
     <Center inline="{false}">
-      <PhotoDrop bind:image="{$prodInfo.showImage}" dropZoneName={"Production Image"}/>
+      <PhotoDrop bind:image="{$prodInfo.showImage}" dropZoneName="{'Production Image'}" />
     </Center>
-    <Box></Box>
+    <Box />
     <Center inline="{false}">
-      <PhotoDrop bind:image="{$prodInfo.designerStamp}" dropZoneName={"Designer Stamp"}/>
+      <PhotoDrop bind:image="{$prodInfo.designerStamp}" dropZoneName="{'Designer Stamp'}" />
     </Center>
   </SimpleGrid>
 </Box>
