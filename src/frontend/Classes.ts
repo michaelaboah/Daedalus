@@ -93,5 +93,12 @@ export interface ProductionInformation {
   designerStamp: string | undefined;
 }
 
-export const buildProdInfo = (existingProject?: ProductionInformation): ProductionInformation =>
-  ({ ...existingProject } as ProductionInformation);
+export const buildProdInfo = (productionInfo?: ProductionInformation): ProductionInformation =>
+  ({ ...productionInfo } as ProductionInformation);
+
+export interface Project {
+  productionInformation: ProductionInformation;
+  gearList: Gear[];
+}
+
+export const createProject = (project?: Project): Project => ({ ...project } as Project);

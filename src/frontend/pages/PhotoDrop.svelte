@@ -14,6 +14,8 @@
   import {
     Box,
     Center,
+    CloseButton,
+    Group,
     Image,
     Text,
     // Tooltip,
@@ -29,7 +31,6 @@
 
   async function handleFiles(files: File[]) {
     photoReader.onloadend = function () {
-      console.log(photoReader.result);
       image = photoReader.result?.toString();
     };
     photoReader.readAsDataURL(files[0]);
@@ -43,7 +44,10 @@
   ml="xl"
   css="{{ p: '$6', borderColor: '$black', borderBlockStyle: 'solid', bc: 'LightGrey', width: 'max-content' }}"
 >
-  <Text align="right" size="xl" weight="{'semibold'}" mb="{'md'}">{dropZoneName}</Text>
+  <Group position="apart" noWrap >
+    <Text align="right" size="xl" weight="{'semibold'}" mb="{'md'}">{dropZoneName}</Text>
+    <CloseButton iconSize="xl" on:click={() => image = undefined}/>
+  </Group>
 
   <FileDrop max="{1}" let:droppable handleFiles="{handleFiles}" acceptedMimes="{acceptedMimes}">
     <div class="zone" class:droppable style="--theme-pad: {dropZonePadding}">

@@ -6,6 +6,7 @@
 </style>
 
 <script lang="ts">
+    import { project } from "../stores/Store"
   let productionName = "Project Name";
 </script>
 
@@ -14,3 +15,5 @@
 </header>
 
 <h1>{productionName}</h1>
+
+{$project}

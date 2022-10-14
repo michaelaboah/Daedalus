@@ -14,7 +14,7 @@
   import Routes from "./Routes.svelte";
   import { gearList } from "./stores/Store";
   import type { Gear } from "./Classes";
-
+  import { project } from "./stores/Store"
   let isDark: boolean;
 
   (async () => {
@@ -34,12 +34,13 @@
   });
 
   window.api.onSaveFile((event: any) => {
-    event.sender.send("save:project", $gearList);
+    event.sender.send("save:project", $project);
   });
 
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),
   });
+
 </script>
 
 <SvelteUIProvider withGlobalStyles themeObserver="{isDark ? 'dark' : 'light'}">

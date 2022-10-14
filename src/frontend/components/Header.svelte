@@ -5,6 +5,7 @@
   import { push } from "svelte-spa-router";
   import { ActionIcon, Box, Button, Grid, Header } from "@svelteuidev/core";
   import { Gear } from "radix-icons-svelte";
+  import { project } from "../stores/Store"
 </script>
 
 <Header fixed height="40" m="10">
@@ -16,15 +17,18 @@
         </ActionIcon>
       </Grid.Col>
       <Grid.Col span="{2}">
-        <Button radius="sm" on:click="{() => push('#/EquipmentListPage')}">Equipemnt List</Button>
+        <Button radius="sm" on:click="{() => push('#/EquipmentListPage')}">Equipment List</Button>
       </Grid.Col>
       <Grid.Col span="{2}">
-        <Button on:click="{() => push('#/ProjectPage')}">Project Page</Button>
+        <Button fullSize on:click="{() => push('#/ProductionPage')}">Production Page</Button>
       </Grid.Col>
       <Grid.Col span="{2}">
-        <Button on:click="{() => push('#/PreferencesPage')}">remove</Button>
+        <Button on:click="{() => push('#/PreferencesPage')}">Remove Me</Button>
       </Grid.Col>
-      <Grid.Col span="{1}" offset="{15}">
+      <Grid.Col span="{2}">
+        <Button on:click="{() => console.log($project.productionInformation)}">Project</Button>
+      </Grid.Col>
+      <Grid.Col span="{1}" offset="{13}">
         <ActionIcon radius="xl" size="xl" variant="hover" color="dark" on:click="{() => push('#/PreferencesPage')}">
           <Gear size="{40}" />
         </ActionIcon>
