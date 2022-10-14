@@ -29,21 +29,16 @@ export const buildEquipment = () => ({
   frequencyRange: "",
 });
 
-export class Box {
+export type Box = {
   id: number;
   name: number;
   length: number;
   width: number;
   height: number;
+};
 
-  constructor(id: number, name: number, length: number, width: number, height: number) {
-    this.id = id;
-    this.name = name;
-    this.length = length;
-    this.width = width;
-    this.height = height;
-  }
-}
+export const buildBox = (currentBox?: Box) => ({ ...currentBox } as Box);
+
 export type Item = {
   description: string;
   itemQuantity: number;
@@ -80,10 +75,20 @@ export const buildGear = (addId?: number) => ({
   gearId: (addId ??= 0),
 });
 
-export type Project = {
-  name: string;
+export interface ProductionInformation {
+  productionName: string;
+  designer: string;
+  designerPhone: string;
+  designerEmail: string;
+  associate: [string, boolean];
+  assistant: [string, boolean];
+  productionSound: [string, boolean];
+  asstProdSound: [string, boolean];
+  audio2: [string, boolean];
+  audio1: [string, boolean];
   showImage: string | undefined;
   designerStamp: string | undefined;
-};
+}
 
-export const createProject = (): Project => ({} as Project);
+export const buildProdInfo = (existingProject?: ProductionInformation): ProductionInformation =>
+  ({ ...existingProject } as ProductionInformation);

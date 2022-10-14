@@ -1,66 +1,76 @@
-<style>
-  .zone {
-    background-color: #eeeeee;
-    padding: var(--theme-pad);
-    border: 2px solid #dddddd;
-  }
-  .droppable {
-    border-color: #1f79ff;
-  }
-  h3 {
-    margin: 0px;
-  }
-</style>
-
 <script lang="ts">
-  import { FileDrop } from "svelte-droplet";
-  import { Box, Center, Image, InputWrapper, SimpleGrid, Text, TextInput, Title } from "@svelteuidev/core";
-  import { project } from "../stores/Store";
-  import { onDestroy } from "svelte/internal";
-  let { showImage } = $project;
-  let droppedFiles: File[] = [];
-  let style: string | undefined;
-  function handleFiles(files: File[]) {
-    droppedFiles = files;
-    if (showImage) {
-      URL.revokeObjectURL(showImage);
-    }
-    showImage = URL.createObjectURL(files[0]);
-    style = "0.5vw";
-  }
-  const acceptedMimes = ["image/webp", "image/jpeg", "image/png", "image/gif", "image/svg+xml"];
+  import PhotoDrop from "./PhotoDrop.svelte";
+  import {
+    Box,
+    Button,
+    Center,
+    Checkbox,
+    Group,
+    InputWrapper,
+    SimpleGrid,
+    TextInput,
+    Title,
+    // Tooltip,
+  } from "@svelteuidev/core";
+  import { prodInfo } from "../stores/Store";
+  const size = "lg"
 
-  onDestroy(() => () => {
-    if (showImage) {
-      URL.revokeObjectURL(showImage);
-    }
-  });
+  const positions = [
+    { label: "Associate Designer", tuple: ($prodInfo.associate ??= ["", false]) },
+    { label: "Assistant Designer", tuple: ($prodInfo.assistant ??= ["", false]) },
+    { label: "Production Sound", tuple: ($prodInfo.productionSound ??= ["", false]) },
+    { label: "Assistant Production Sound", tuple: ($prodInfo.asstProdSound ??= ["", false]) },
+    { label: "A1 / Board Op", tuple: ($prodInfo.audio1 ??= ["", false]) },
+    { label: "A2", value: false, tuple: ($prodInfo.audio2 ??= ["", false]) },
+  ];
 </script>
 
 <Box>
-  <Title>Project Configuration</Title>
-  <SimpleGrid cols="{2}">
-    <InputWrapper label="{''}" labelElement="{undefined}">
-      <TextInput placeholder="Mary Poppins" label="Production or Show name: " bind:value="{$project.name}" />
-    </InputWrapper>
+  <Title mb="xl">Production Configuration</Title>
+  <SimpleGrid cols="{2}" ml="lg">
+    <InputWrapper label="{''}" labelElement="{undefined}" {size}>
+      <Group>
+        {#each positions as { label, tuple: [_vari, bool] }}
+          <Checkbox bind:checked="{bool}" label="{label}" />
+        {/each}
+        <!-- <Tooltip opened={opened} label=""> -->
+        <Button disabled>Select All</Button>
+        <!-- </Tooltip> -->
+      </Group>
+      <TextInput
+        placeholder="WALL-E"
+        label="Production or Show name: "
+        bind:value="{$prodInfo.productionName}"
+        {size}
+      />
+      <SimpleGrid cols="{3}">
+        <TextInput placeholder="Ben Burtt" label="Designer: " bind:value="{$prodInfo.designer}" {size} />
+        <TextInput
+          placeholder="(123)-456-7890 "
+          label="Designer Phone #: "
+          bind:value="{$prodInfo.designerPhone}"
+          {size}
+        />
+        <TextInput
+          placeholder="Ben-Burtt@wall-eve.com"
+          label="Designer Email: "
+          bind:value="{$prodInfo.designerEmail}"
+          {size}
+        />
 
-    <Box ml="xl" css="{{ p: '$6', borderColor: '$black', borderBlockStyle: 'solid', bc: 'LightGrey' }}">
-      <Text align="right" size="xl" weight="{'semibold'}" mb="{'md'}">Production Image</Text>
-
-      <FileDrop max="{1}" let:droppable handleFiles="{handleFiles}" acceptedMimes="{acceptedMimes}">
-        <div class="zone" class:droppable style="--theme-pad: {style ? style : '4vw'}">
-          {#if showImage}
-            {#each droppedFiles as item}
-              <Center>
-                <Image bind:src="{showImage}" fit="contain" width="{400}" height="{300}" alt="{item.name}" />
-              </Center>
-            {/each}
-          {:else}
-            <!-- <Center inline="{false}"></Center> -->
-            <Text align="center" size="xl">Drag and Drop 1 Image</Text>
+        {#each positions as { label, tuple: [vari, bool] }}
+          {#if bool}
+            <TextInput label="{label + ': '}" bind:value="{vari}" {size} />
           {/if}
-        </div>
-      </FileDrop>
-    </Box>
+        {/each}
+      </SimpleGrid>
+    </InputWrapper>
+    <Center inline="{false}">
+      <PhotoDrop bind:image="{$prodInfo.showImage}" dropZoneName={"Production Image"}/>
+    </Center>
+    <Box></Box>
+    <Center inline="{false}">
+      <PhotoDrop bind:image="{$prodInfo.designerStamp}" dropZoneName={"Designer Stamp"}/>
+    </Center>
   </SimpleGrid>
 </Box>

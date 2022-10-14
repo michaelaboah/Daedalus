@@ -34,7 +34,7 @@ specifiers:
   cross-env: ^7.0.3
   dotenv: ^16.0.1
   electron: ^16.0.6
-  electron-builder: ^22.11.7
+  electron-builder: ^22.14.13
   electron-log: ^4.3.5
   electron-store: ^8.0.0
   electron-updater: ^4.3.9
