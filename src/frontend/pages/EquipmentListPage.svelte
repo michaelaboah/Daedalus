@@ -13,7 +13,7 @@
   } */
 </style>
 
-<script lang="ts">
+<script>
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
   import { buildGear } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
