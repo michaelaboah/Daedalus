@@ -17,3 +17,8 @@ export const project = derived<[Writable<ProductionInformation>, Writable<Gear[]
     return { productionInformation: $prodInfo, gearList: $gearList } as Project;
   }
 );
+
+export const loadProject = (project: Project) => {
+  gearList.set(project.gearList);
+  prodInfo.set(project.productionInformation);
+};

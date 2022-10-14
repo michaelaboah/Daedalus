@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { Notification, Footer } from "@svelteuidev/core";
+  import { Notification, Footer, } from "@svelteuidev/core";
   import { Check, Cross2 } from "radix-icons-svelte";
   import { setAccessToken } from "../utils/accessToken";
+
 
   const response = fetch("http://localhost:4000/refresh_token", {
     method: "POST",
@@ -13,9 +14,12 @@
       setAccessToken(recievedToken);
     });
   let isNotified: boolean = true;
+
+  setTimeout(() => {
+    isNotified = false
+  }, 5000)
 </script>
 
-<!-- <Button on:click={() => isNotified = !isNotified}>Notification</Button> -->
 <Footer height="10" fixed>
   {#if isNotified}
     {#await response}

@@ -6,14 +6,12 @@
 </style>
 
 <script lang="ts">
-    import { project } from "../stores/Store"
-  let productionName = "Project Name";
+  import { prodInfo } from '../stores/Store'
+  
 </script>
 
 <header>
   <h2>Main Menu</h2>
 </header>
 
-<h1>{productionName}</h1>
-
-{$project}
+<h1>{$prodInfo.productionName ? "Current Project: " + $prodInfo.productionName : "New Project"}</h1>

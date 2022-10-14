@@ -12,8 +12,8 @@
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
-  import { gearList } from "./stores/Store";
-  import type { Gear } from "./Classes";
+  import { loadProject } from "./stores/Store";
+  import type { Project } from "./Classes";
   import { project } from "./stores/Store"
   let isDark: boolean;
 
@@ -25,9 +25,9 @@
     const persistData = await window.api.handleUserStorage("preferences");
     return persistData.darkmode;
   }
-  window.api.loadToFrontend((_event: any, val: Gear[]) => {
-    if ($gearList.length === 0) {
-      $gearList = val;
+  window.api.loadToFrontend((_event: any, parsedProject: Project) => {
+    if (parsedProject) {
+      loadProject(parsedProject)
     } else {
       window.api.dialogError("File load error", "Cannot override current items in Equipment List");
     }
