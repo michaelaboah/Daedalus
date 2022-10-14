@@ -19,7 +19,7 @@
         <Button radius="sm" on:click="{() => push('#/EquipmentListPage')}">Equipemnt List</Button>
       </Grid.Col>
       <Grid.Col span="{2}">
-        <div></div>
+        <Button on:click="{() => push('#/ProjectPage')}">Project Page</Button>
       </Grid.Col>
       <Grid.Col span="{2}">
         <Button on:click="{() => push('#/PreferencesPage')}">remove</Button>
@@ -32,12 +32,3 @@
     </Grid>
   </Box>
 </Header>
-
-<!-- Main content uses the default slot, so no need to explicitly declare it -->
-<!-- <ShellSection grow>
-		<div>Shell</div>
-	</ShellSection> -->
-
-<!-- <Aside slot="aside" ml="xl">
-		<div>Aside</div>
-	</Aside> -->

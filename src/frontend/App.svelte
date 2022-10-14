@@ -12,6 +12,9 @@
   import Header from "./components/Header.svelte";
   import { themeKey } from "./utils/contextKeys";
   import Routes from "./Routes.svelte";
+  import { gearList } from "./stores/Store";
+  import type { Gear } from "./Classes";
+
   let isDark: boolean;
 
   (async () => {
@@ -22,6 +25,17 @@
     const persistData = await window.api.handleUserStorage("preferences");
     return persistData.darkmode;
   }
+  window.api.loadToFrontend((_event: any, val: Gear[]) => {
+    if ($gearList.length === 0) {
+      $gearList = val;
+    } else {
+      window.api.dialogError("File load error", "Cannot override current items in Equipment List");
+    }
+  });
+
+  window.api.onSaveFile((event: any) => {
+    event.sender.send("save:project", $gearList);
+  });
 
   setContext(themeKey, {
     toggleDark: () => (isDark = !isDark),

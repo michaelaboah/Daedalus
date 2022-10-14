@@ -4,7 +4,7 @@ import { parse } from "url";
 import { autoUpdater } from "electron-updater";
 import logger from "./utils/logger";
 import settings from "./utils/settings";
-import { openFile, saveAsFile, template } from "./menu";
+import { saveAsFile, template } from "./menu";
 import { getUserPreferences, getWinRect, saveBounds, setUserPreferences } from "./utils/persistant";
 import { initSQLite, ormMain } from "./database/init_SQL";
 import "dotenv/config";
@@ -135,9 +135,6 @@ const createWindow = () => {
 
 app.on("ready", () => {
   createWindow();
-  ipcMain.handle("dialog:openFile", openFile);
-  //move to before-quit
-
   //Adds more menus to the ones that already exist on Macos
   if (isMac) {
     // @ts-expect-error

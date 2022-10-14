@@ -17,10 +17,9 @@ export type Equipment = {
   quantity?: number;
 };
 
-export const buildEquipment = (): Equipment => ({
-  modelId: 0,
-  // createdAt:  undefined,
-  // updatedAt:  undefined,
+export const buildEquipment = () => ({
+  createdAt: undefined,
+  updatedAt: undefined,
   category: "",
   manufacturer: "",
   model: "",
@@ -31,25 +30,18 @@ export const buildEquipment = (): Equipment => ({
   depth: 0,
   rackUnit: 0,
   frequencyRange: "",
-  items: [],
-  quantity: 0,
 });
 
-export class Box {
+export type Box = {
   id: number;
   name: number;
   length: number;
   width: number;
   height: number;
+};
 
-  constructor(id: number, name: number, length: number, width: number, height: number) {
-    this.id = id;
-    this.name = name;
-    this.length = length;
-    this.width = width;
-    this.height = height;
-  }
-}
+export const buildBox = (currentBox?: Box) => ({ ...currentBox } as Box);
+
 export type Item = {
   description: string;
   itemQuantity: number;
@@ -60,10 +52,46 @@ export type Item = {
 
 export const buildItem = () => ({
   description: "",
-  itemQuantity: 0,
+  itemQuantity: 1,
   publicNotes: "",
   privateNotes: "",
   // box: new Box();
 });
 
-export type Gear = Equipment & { items: Item[]; quantity: number };
+export type Gear = Equipment & { items: Item[]; gearId: number; quantity: number };
+
+export const buildGear = (addId?: number) => ({
+  createdAt: undefined,
+  updatedAt: undefined,
+  category: "",
+  manufacturer: "",
+  model: "",
+  publicNotes: "",
+  cost: 0,
+  powerDraw: 0,
+  weight: 0,
+  depth: 0,
+  rackUnit: 0,
+  frequencyRange: "",
+  items: [buildItem()],
+  quantity: 0,
+  gearId: (addId ??= 0),
+});
+
+export interface ProductionInformation {
+  productionName: string;
+  designer: string;
+  designerPhone: string;
+  designerEmail: string;
+  associate: [string, boolean];
+  assistant: [string, boolean];
+  productionSound: [string, boolean];
+  asstProdSound: [string, boolean];
+  audio2: [string, boolean];
+  audio1: [string, boolean];
+  showImage: string | undefined;
+  designerStamp: string | undefined;
+}
+
+export const buildProdInfo = (existingProject?: ProductionInformation): ProductionInformation =>
+  ({ ...existingProject } as ProductionInformation);

@@ -1,19 +1,19 @@
 {
   "name": "electron-svelte-typescript",
-  "description": "Template for desktop apps written with Electron, Svelte and Typescript.",
+  "description": "Theatrical sound design Tool.",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fuzzc0re/electron-svelte-typescript.git"
+    "url": "git+https://github.com/michaelaboah/Daedalus.git"
   },
   "author": {
-    "name": "fuzzc0re",
-    "email": "fuzzc0re@protonmail.com",
-    "url": "https://github.com/fuzzc0re"
+    "name": "Michael Aboah",
+    "email": "michaelaboah@gmail.com",
+    "url": "https://github.com/michaelaboah"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fuzzc0re/electron-svelte-typescript/issues"
+    "url": "https://github.com/michaelaboah/Daedalus/issues"
   },
   "keywords": [
     "electron",
@@ -72,15 +72,17 @@
     "@svelteuidev/preprocessors": "^0.7.2",
     "@svelteuidev/prism": "^0.7.2",
     "apollo-link-token-refresh": "^0.4.0",
-    "carbon-components-svelte": "^0.70.0",
+    "class-validator": "^0.13.2",
     "dotenv": "^16.0.1",
     "electron-log": "^4.3.5",
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
     "graphql": "15.7.2",
+    "graphql-tag": "^2.12.6",
     "jwt-decode": "^3.1.2",
     "printjs": "^1.1.0",
     "subscriptions-transport-ws": "^0.11.0",
+    "svelte-select": "^4.4.7",
     "svelte-spa-router": "^3.3.0",
     "type-graphql": "^1.1.1"
   },
@@ -106,7 +108,7 @@
     "clean-css": "^5.1.2",
     "cross-env": "^7.0.3",
     "electron": "^16.0.6",
-    "electron-builder": "^22.11.7",
+    "electron-builder": "^22.14.13",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jsdoc": "^37.5.1",
@@ -114,7 +116,7 @@
     "graphql-codegen-svelte-apollo": "^1.1.0",
     "html-minifier": "^4.0.0",
     "jest": "^27.0.4",
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.20",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.16",
     "prettier": "^2.3.1",
@@ -128,9 +130,10 @@
     "rollup-plugin-terser": "^7.0.2",
     "simple-svelte-autocomplete": "^2.4.0",
     "sqlite3": "^5.0.11",
-    "svelte": "^3.49.0",
+    "svelte": "^3.50.1",
     "svelte-apollo": "^0.5.0",
     "svelte-check": "^2.2.0",
+    "svelte-droplet": "^0.2.0",
     "svelte-preprocess": "^4.7.3",
     "terser": "^5.10.0",
     "ts-jest": "^27.0.3",
@@ -183,8 +186,8 @@
     ],
     "fileAssociations": [
       {
-        "ext": "fyr",
-        "name": "Freyur Project",
+        "ext": "dae",
+        "name": "Daedalus Project",
         "role": "Editor"
       }
     ],
