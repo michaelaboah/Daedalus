@@ -35,7 +35,7 @@ export const API = {
   dialogError: (title: string, message: string) => ipcRenderer.send("frontend-error", title, message),
 
   // File Handling
-  saveFile: (data: any) => ipcRenderer.send("save:project", data),
+  saveFile: (data: string, path: string) => ipcRenderer.send("save:project", data, path),
   onSaveFile: (callback: any) => ipcRenderer.on("start:save:project", callback),
   onOpenFile: () => ipcRenderer.invoke("dialog:openFile"),
 

@@ -4,7 +4,7 @@ import { parse } from "url";
 import { autoUpdater } from "electron-updater";
 import logger from "./utils/logger";
 import settings from "./utils/settings";
-import { saveAsFile, template } from "./menu";
+import { template } from "./menu";
 import { getUserPreferences, getWinRect, saveBounds, setUserPreferences } from "./utils/persistant";
 import { initSQLite, ormMain } from "./database/init_SQL";
 import "dotenv/config";
@@ -158,6 +158,17 @@ app.on("activate", () => {
   if (mainWindow === null) createWindow();
 });
 
+app.on("open-file", (_event, path) => {
+  const fs = require("fs");
+  fs.readFile(path, (err: NodeJS.ErrnoException | null, data: JSON) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      mainWindow.webContents.send("load:project", { data: JSON.parse(data.toString()), filepath: path });
+    }
+  });
+});
+
 app.on("web-contents-created", (e, contents) => {
   logger.info(e);
   // Security of webviews
@@ -266,12 +277,6 @@ ipcMain.on("frontend-error", (_event, errorTitle, errorMessage) => {
 });
 
 ipcMain.on("sanity", (_event, args) => console.log(args));
-
-ipcMain.on("save-project", (_event, projectData) => {
-  saveAsFile(projectData)
-    // .then(event.reply())
-    .catch((err) => dialog.showErrorBox("There was an issue saving your project", err));
-});
 
 ipcMain.on("counter-value", (_event, value) => {
   console.log(value); // will print value to Node console

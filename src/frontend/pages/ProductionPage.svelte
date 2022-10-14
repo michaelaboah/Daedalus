@@ -1,5 +1,5 @@
 <script lang="ts">
-  import PhotoDrop from "./PhotoDrop.svelte";
+  import PhotoDrop from "../components/PhotoDrop.svelte";
   import {
     Box,
     Button,
@@ -15,7 +15,7 @@
   import { prodInfo } from "../stores/Store";
   const size = "lg";
 
-  const positions = [
+  $: positions = [
     { label: "Associate Designer", tuple: ($prodInfo.associate ??= ["", false]) },
     { label: "Assistant Designer", tuple: ($prodInfo.assistant ??= ["", false]) },
     { label: "Production Sound", tuple: ($prodInfo.productionSound ??= ["", false]) },

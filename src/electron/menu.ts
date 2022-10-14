@@ -74,7 +74,13 @@ export const template = [
         ],
       },
       { type: "separator" },
-      { label: "Save", accelerator: "CommandOrControl+S" },
+      {
+        label: "Save",
+        accelerator: "CommandOrControl+S",
+        click() {
+          mainWindow.webContents.send("start:save:project");
+        },
+      },
       {
         label: "Save As",
         accelerator: "CmdOrCtrl + Shift + s",
@@ -189,8 +195,8 @@ export const openFile = async (): Promise<any> => {
     if (err) {
       return console.log(err);
     } else {
-      console.log(JSON.parse(data.toString()));
-      mainWindow.webContents.send("load:project", JSON.parse(data.toString()));
+      // console.log(JSON.parse(data.toString()));
+      mainWindow.webContents.send("load:project", { data: JSON.parse(data.toString()), filepath: filePaths[0] });
     }
   });
 };
@@ -224,8 +230,13 @@ export const beforeQuit = (_data: any) => {
   }
 };
 
-ipcMain.on("save:project", (_event, data) => {
-  saveAsFile(data);
+ipcMain.on("save:project", (_event, savedData: string, filepath: string) => {
+  fs.writeFile(filepath, JSON.stringify(savedData), (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(`File was saved at: ${filepath}`);
+  });
 });
 
 ipcMain.handle("dialog:openFile", openFile);

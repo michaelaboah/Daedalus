@@ -5,7 +5,7 @@ export const accessToken = writable("");
 
 export const gearList = writable<Gear[]>([]);
 
-export const count = writable(0);
+export const currentFile = writable<string>("");
 
 // export const projectList = writable<Project>({} as Project);
 
