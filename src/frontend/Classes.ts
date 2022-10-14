@@ -42,21 +42,17 @@ export type Box = {
 
 export const buildBox = (currentBox?: Box) => ({ ...currentBox } as Box);
 
-export type Item = {
+export interface Item {
+  itemId: number;
   description: string;
   itemQuantity: number;
   publicNotes?: string;
   privateNotes?: string;
   box?: Box;
-};
+}
 
-export const buildItem = () => ({
-  description: "",
-  itemQuantity: 1,
-  publicNotes: "",
-  privateNotes: "",
-  // box: new Box();
-});
+export const buildItem = (currentItem?: Item): Item =>
+  currentItem ? { ...currentItem, itemQuantity: 1 } : ({} as Item);
 
 export type Gear = Equipment & { items: Item[]; gearId: number; quantity: number };
 

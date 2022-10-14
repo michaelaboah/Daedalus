@@ -7,7 +7,7 @@
 <script lang="ts">
   //@ts-ignore
   import { Box, Button, Grid, Input, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
-  import { buildItem, type Equipment, type Gear } from "../Classes";
+  import { buildItem, type Equipment, type Gear, type Item} from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   //@ts-ignore
   import Select from "svelte-select";
@@ -25,8 +25,12 @@
   };
 
   const addItem = () => {
-    gear.items = [...gear.items, buildItem()];
+    gear.items = [...gear.items, buildItem({...{} as Item, itemId: gear.items.length})];
   };
+  const deleteItem = (itemId: number) => {
+    gear.items.splice(itemId, 1)
+    gear.items = gear.items.map((x, index) => x = {...x, itemId: x.itemId = index})
+  }
 
   //handle total item count
   const handleItemChange = () => {
@@ -77,12 +81,13 @@
     <Grid.Col offset="{1}" span="{1}">
       <Button on:click="{addItem}" disabled="{!gear.model}">Add Item</Button>
     </Grid.Col>
-    {#each gear.items as { description, itemQuantity, publicNotes, privateNotes }}
+    {#each gear.items as { description, itemQuantity, publicNotes, privateNotes, itemId } (itemId)}
       <SimpleGrid cols="{6}" ml="lg" mb="lg">
         <TextInput label="Description" placeholder="{'Enter Usage / Purpose: '}" bind:value="{description}" />
         <NumberInput label="Quantity" min="{0}" on:change="{handleItemChange}" bind:value="{itemQuantity}" />
         <TextInput label="Public Notes" bind:value="{publicNotes}" />
         <TextInput label="Private Notes" bind:value="{privateNotes}" />
+        <Button on:click={()=> deleteItem(itemId)}>Current Item: {itemId??= 0}</Button>
       </SimpleGrid>
     {/each}
   </Grid>

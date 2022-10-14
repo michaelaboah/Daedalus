@@ -21,7 +21,6 @@
   import EquipmentHeader from "../components/EquipmentHeader.svelte";
   import { gearList } from "../stores/Store";
   const addGear = () => {
-    //@ts-ignore
     $gearList = [...$gearList, buildGear($gearList.length - 1)];
     console.log($gearList);
   };
@@ -55,17 +54,13 @@
     <div class="group {group.category}">
       <Box css="{{ backgroundColor: '$cyan100' }}">
         <Stack>
-          <Title order="{3}">{categoryName}</Title>
-          <slot />
+          <Title order="{3}">{group.category ? group.category : ""}</Title>
+          {#each group.values as value, index (value)}
+            <EquipmentComponent bind:gear="{value}" index="{index}" />
+          {/each}          
         </Stack>
       </Box>
       <br />
-      {#each group.values as value, index (value)}
-        <!-- <div class="thing {group.category}"> -->
-        <EquipmentComponent bind:gear="{value}" index="{index}" />
-        <!-- </div> -->
-      {/each}
-      <!-- </EquipmentHeader> -->
     </div>
   </Stack>
 {:else}
