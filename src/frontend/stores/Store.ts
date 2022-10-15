@@ -1,9 +1,9 @@
 import { derived, writable, type Writable } from "svelte/store";
-import { buildProdInfo, type Gear, type ProductionInformation, type Project } from "../Classes";
+import { buildGear, buildProdInfo, type Gear, type ProductionInformation, type Project } from "../Classes";
 
 export const accessToken = writable("");
 
-export const gearList = writable<Gear[]>([]);
+export const gearList = writable<Gear[]>([buildGear({ gearId: 0 } as Gear)]);
 
 export const currentFile = writable<string>("");
 

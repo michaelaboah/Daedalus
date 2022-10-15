@@ -1,29 +1,23 @@
-<style>
-  /* .group.type-Console {
-    border: 1px solid red;
-  }
-  .group.type-Processing {
-    border: 1px solid green;
-  }
-  .thing.type-Console {
-    color: red;
-  }
-  .thing.type-Processing {
-    color: green;
-  } */
-</style>
 
-<script>
+<script lang='ts'>
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
   import { Box, Title } from "@svelteuidev/core";
-  import { buildGear } from "../Classes";
+  import { buildGear, type Gear } from "../Classes";
   import EquipmentComponent from "../components/EquipmentComponent.svelte";
-  import EquipmentHeader from "../components/EquipmentHeader.svelte";
+  // import EquipmentHeader from "../components/EquipmentHeader.svelte";
   import { gearList } from "../stores/Store";
+
+  console.log($gearList.length)
+  let rest: any
   const addGear = () => {
-    $gearList = [...$gearList, buildGear($gearList.length - 1)];
-    console.log($gearList);
+    $gearList = [...$gearList, buildGear({...{} as Gear, gearId: $gearList.length})];
+    gearList.update((n) => n.map((x, index) => x = {...x, gearId: x.gearId = index}))
+    console.table($gearList);
   };
+
+  function manual_id_update(){
+    gearList.update((n) => n.map((x, index) => x = {...x, gearId: x.gearId = index}))
+  }
 
   $: groups = $gearList.reduce((curr, val) => {
     let group = curr.length ? curr[curr.length - 1] : undefined;
@@ -35,7 +29,19 @@
     return curr;
   }, []);
 
-  $: $gearList.sort((a, b) => a.category.localeCompare(b.category));
+  $: {
+    $gearList.sort((a: Gear, b) => {
+    if ((a.category > b.category)) {
+      return -1
+    } else if((a.category < b.category)) {
+      return +1
+    } else {
+      return 0
+    }
+  });
+
+  }
+
 </script>
 
 <Header height="10" pb="4">
@@ -44,31 +50,29 @@
       <Button on:click="{addGear}">Add Gear</Button>
     </Grid.Col>
     <Grid.Col span="{1}">
-      <Button on:click="{() => console.log($gearList)}">Delete Gear</Button>
+      <Button on:click="{manual_id_update}">Manual Update</Button>
     </Grid.Col>
   </Grid>
 </Header>
 
-{#each groups as group}
+{#each groups as group }
   <Stack align="stretch" justify="flex-start" spacing="xs">
-    <div class="group {group.category}">
       <Box css="{{ backgroundColor: '$cyan100' }}">
         <Stack>
           <Title order="{3}">{group.category ? group.category : ""}</Title>
-          {#each group.values as value, index (value)}
-            <EquipmentComponent bind:gear="{value}" index="{index}" />
+          {#each group.values as value (value)}
+            <EquipmentComponent bind:gear="{value}" bind:index="{value.gearId}" />
           {/each}          
         </Stack>
       </Box>
       <br />
-    </div>
   </Stack>
 {:else}
-  <Center>
+  <Center inline>
     <Paper>
       <Text size="xl" align="center">
         Empty list bud, try adding something using the Add Gear button or the
-        <Kbd>⌘</Kbd> + <Kbd>N</Kbd>
+        <Kbd {...rest}>⌘</Kbd> + <Kbd {...rest}>N</Kbd>
       </Text>
     </Paper>
   </Center>

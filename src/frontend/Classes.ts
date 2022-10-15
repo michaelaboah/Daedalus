@@ -1,4 +1,4 @@
-export type Equipment = {
+export interface Equipment {
   modelId: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -12,33 +12,19 @@ export type Equipment = {
   depth?: number;
   rackUnit?: number;
   frequencyRange?: string;
-
   items?: Item[];
   quantity?: number;
-};
+}
 
-export const buildEquipment = () => ({
-  createdAt: undefined,
-  updatedAt: undefined,
-  category: "",
-  manufacturer: "",
-  model: "",
-  publicNotes: "",
-  cost: 0,
-  powerDraw: 0,
-  weight: 0,
-  depth: 0,
-  rackUnit: 0,
-  frequencyRange: "",
-});
+export const buildEquipment = () => ({} as Equipment);
 
-export type Box = {
+export interface Box {
   id: number;
   name: number;
   length: number;
   width: number;
   height: number;
-};
+}
 
 export const buildBox = (currentBox?: Box) => ({ ...currentBox } as Box);
 
@@ -56,23 +42,7 @@ export const buildItem = (currentItem?: Item): Item =>
 
 export type Gear = Equipment & { items: Item[]; gearId: number; quantity: number };
 
-export const buildGear = (addId?: number) => ({
-  createdAt: undefined,
-  updatedAt: undefined,
-  category: "",
-  manufacturer: "",
-  model: "",
-  publicNotes: "",
-  cost: 0,
-  powerDraw: 0,
-  weight: 0,
-  depth: 0,
-  rackUnit: 0,
-  frequencyRange: "",
-  items: [buildItem()],
-  quantity: 0,
-  gearId: (addId ??= 0),
-});
+export const buildGear = (currentGear: Gear) => ({ ...currentGear, items: [buildItem()] } as Gear);
 
 export interface ProductionInformation {
   productionName: string;

@@ -6,7 +6,7 @@
 
 <script lang="ts">
   //@ts-ignore
-  import { Box, Button, Grid, Input, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
+  import { Box, Button, Center, CloseButton, Grid, Input, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
   import { buildItem, type Equipment, type Gear, type Item} from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   //@ts-ignore
@@ -14,13 +14,13 @@
   import { gearList } from "../stores/Store";
 
   export let gear: Gear;
-  export let index = 0;
-
+  export let index: number;
+  $: console.log(index)
   $: totalCost = gear.quantity * gear.cost;
   $: totalPower = gear.quantity * (gear.powerDraw ??= 0);
 
-  const asyncTest = async () => {
-    const response = await AsyncFuzzyTextSearch({ variables: { fuzzySearch: gear.model } });
+  const asyncTest = async (fillerText: string) => {
+    const response = await AsyncFuzzyTextSearch({ variables: { fuzzySearch: fillerText } });
     return response.data.fuzzyTextSearch;
   };
 
@@ -30,6 +30,11 @@
   const deleteItem = (itemId: number) => {
     gear.items.splice(itemId, 1)
     gear.items = gear.items.map((x, index) => x = {...x, itemId: x.itemId = index})
+  }
+
+  const deleteGear = () => {
+    $gearList.splice(index, 1);
+    $gearList = $gearList.map((x, index) => x = {...x, gearId: x.gearId = index})
   }
 
   //handle total item count
@@ -47,26 +52,30 @@
     gear = { ...gear, ...e.detail };
     $gearList[index] = gear;
   };
-</script>
 
+  function getModel(e: any) { return e.model }
+</script>
+{index}
 <Box css="{{ backgroundColor: theme.colors['dark100'] }}">
   <Grid cols="{12}" grow>
     <Grid.Col span="{3}">
       <Text weight="bold" size="xl" m="xs">Quick Search Model</Text>
       <div class="autocomplete">
         <Select
-          value="{null}"
+          value={gear.model}
           loadOptions="{asyncTest}"
           placeholder=""
           on:select="{handleSelect}"
-          labelIdentifier="{'model'}"
+          getSelectionLabel={getModel}
+          getOptionLabel={getModel}
+          optionIdentifier="model"
         />
       </div>
-      <Input bind:value="{gear.model}" />
+      <!-- <Input bind:value="{gear.model}" /> -->
     </Grid.Col>
     <Grid.Col span="{1}">
       <Text weight="bold" size="xl" m="xs">Total Quantity</Text>
-      <NumberInput defaultValue="{gear.items.length}" bind:value="{gear.quantity}" min="{0}" size="sm" hideControls />
+      <NumberInput defaultValue="{0}" bind:value="{gear.quantity}" min="{0}" size="sm" hideControls />
     </Grid.Col>
     <Grid.Col span="{1}">
       <Text weight="bold" size="xl" m="xs">Initial Cost</Text>
@@ -78,8 +87,11 @@
     <Grid.Col span="{2}">
       <Text weight="bold" size="xl" m="xs">Total Power Draw: {totalPower}</Text>
     </Grid.Col>
-    <Grid.Col offset="{1}" span="{1}">
+    <Grid.Col span="{1}">
       <Button on:click="{addItem}" disabled="{!gear.model}">Add Item</Button>
+    </Grid.Col>
+    <Grid.Col span="{1}">
+      <Button on:click="{deleteGear}" >Remove Gear: {index}</Button>
     </Grid.Col>
     {#each gear.items as { description, itemQuantity, publicNotes, privateNotes, itemId } (itemId)}
       <SimpleGrid cols="{6}" ml="lg" mb="lg">
@@ -87,7 +99,7 @@
         <NumberInput label="Quantity" min="{0}" on:change="{handleItemChange}" bind:value="{itemQuantity}" />
         <TextInput label="Public Notes" bind:value="{publicNotes}" />
         <TextInput label="Private Notes" bind:value="{privateNotes}" />
-        <Button on:click={()=> deleteItem(itemId)}>Current Item: {itemId??= 0}</Button>
+          <CloseButton iconSize="xl" on:click="{() => deleteItem(itemId)}" variant="outline"/>
       </SimpleGrid>
     {/each}
   </Grid>
