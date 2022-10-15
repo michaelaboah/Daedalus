@@ -5,14 +5,12 @@
 </style>
 
 <script lang="ts">
-  //@ts-ignore
+
   import {
     Box,
     Button,
-    Center,
     CloseButton,
     Grid,
-    Input,
     NumberInput,
     SimpleGrid,
     Text,
@@ -70,7 +68,6 @@
   }
 </script>
 
-{index}
 <Box css="{{ backgroundColor: theme.colors['dark100'] }}">
   <Grid cols="{12}" grow>
     <Grid.Col span="{3}">
@@ -86,7 +83,6 @@
           optionIdentifier="model"
         />
       </div>
-      <!-- <Input bind:value="{gear.model}" /> -->
     </Grid.Col>
     <Grid.Col span="{1}">
       <Text weight="bold" size="xl" m="xs">Total Quantity</Text>

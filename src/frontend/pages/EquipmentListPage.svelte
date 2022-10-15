@@ -6,12 +6,11 @@
   // import EquipmentHeader from "../components/EquipmentHeader.svelte";
   import { gearList } from "../stores/Store";
 
-  console.log($gearList.length);
   let rest: any;
   const addGear = () => {
     $gearList = [...$gearList, buildGear({ ...({} as Gear), gearId: $gearList.length })];
     gearList.update((n) => n.map((x, index) => (x = { ...x, gearId: (x.gearId = index) })));
-    console.table($gearList);
+    // console.table($gearList);
   };
 
   function manual_id_update() {
@@ -56,7 +55,7 @@
   <Stack align="stretch" justify="flex-start" spacing="xs">
     <Box css="{{ backgroundColor: '$cyan100' }}">
       <Stack>
-        <Title order="{3}">{group.category ? group.category : ""}</Title>
+        <Title order="{3}">{group.category === undefined ? "New Category" : group.category}</Title>
         {#each group.values as value (value)}
           <EquipmentComponent bind:gear="{value}" bind:index="{value.gearId}" />
         {/each}
@@ -65,7 +64,7 @@
     <br />
   </Stack>
 {:else}
-  <Center inline>
+  <Center inline={false}>
     <Paper>
       <Text size="xl" align="center">
         Empty list bud, try adding something using the Add Gear button or the
