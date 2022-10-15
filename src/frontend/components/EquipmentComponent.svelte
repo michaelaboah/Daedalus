@@ -6,8 +6,20 @@
 
 <script lang="ts">
   //@ts-ignore
-  import { Box, Button, Center, CloseButton, Grid, Input, NumberInput, SimpleGrid, Text, TextInput, theme } from "@svelteuidev/core";
-  import { buildItem, type Equipment, type Gear, type Item} from "../Classes";
+  import {
+    Box,
+    Button,
+    Center,
+    CloseButton,
+    Grid,
+    Input,
+    NumberInput,
+    SimpleGrid,
+    Text,
+    TextInput,
+    theme,
+  } from "@svelteuidev/core";
+  import { buildItem, type Equipment, type Gear, type Item } from "../Classes";
   import { AsyncFuzzyTextSearch } from "../generated/graphql";
   //@ts-ignore
   import Select from "svelte-select";
@@ -15,7 +27,7 @@
 
   export let gear: Gear;
   export let index: number;
-  $: console.log(index)
+  $: console.log(index);
   $: totalCost = gear.quantity * gear.cost;
   $: totalPower = gear.quantity * (gear.powerDraw ??= 0);
 
@@ -25,17 +37,17 @@
   };
 
   const addItem = () => {
-    gear.items = [...gear.items, buildItem({...{} as Item, itemId: gear.items.length})];
+    gear.items = [...gear.items, buildItem({ ...({} as Item), itemId: gear.items.length })];
   };
   const deleteItem = (itemId: number) => {
-    gear.items.splice(itemId, 1)
-    gear.items = gear.items.map((x, index) => x = {...x, itemId: x.itemId = index})
-  }
+    gear.items.splice(itemId, 1);
+    gear.items = gear.items.map((x, index) => (x = { ...x, itemId: (x.itemId = index) }));
+  };
 
   const deleteGear = () => {
     $gearList.splice(index, 1);
-    $gearList = $gearList.map((x, index) => x = {...x, gearId: x.gearId = index})
-  }
+    $gearList = $gearList.map((x, index) => (x = { ...x, gearId: (x.gearId = index) }));
+  };
 
   //handle total item count
   const handleItemChange = () => {
@@ -53,8 +65,11 @@
     $gearList[index] = gear;
   };
 
-  function getModel(e: any) { return e.model }
+  function getModel(e: any) {
+    return e.model;
+  }
 </script>
+
 {index}
 <Box css="{{ backgroundColor: theme.colors['dark100'] }}">
   <Grid cols="{12}" grow>
@@ -62,12 +77,12 @@
       <Text weight="bold" size="xl" m="xs">Quick Search Model</Text>
       <div class="autocomplete">
         <Select
-          value={gear.model}
+          value="{gear.model}"
           loadOptions="{asyncTest}"
           placeholder=""
           on:select="{handleSelect}"
-          getSelectionLabel={getModel}
-          getOptionLabel={getModel}
+          getSelectionLabel="{getModel}"
+          getOptionLabel="{getModel}"
           optionIdentifier="model"
         />
       </div>
@@ -91,7 +106,7 @@
       <Button on:click="{addItem}" disabled="{!gear.model}">Add Item</Button>
     </Grid.Col>
     <Grid.Col span="{1}">
-      <Button on:click="{deleteGear}" >Remove Gear: {index}</Button>
+      <Button on:click="{deleteGear}">Remove Gear: {index}</Button>
     </Grid.Col>
     {#each gear.items as { description, itemQuantity, publicNotes, privateNotes, itemId } (itemId)}
       <SimpleGrid cols="{6}" ml="lg" mb="lg">
@@ -99,7 +114,7 @@
         <NumberInput label="Quantity" min="{0}" on:change="{handleItemChange}" bind:value="{itemQuantity}" />
         <TextInput label="Public Notes" bind:value="{publicNotes}" />
         <TextInput label="Private Notes" bind:value="{privateNotes}" />
-          <CloseButton iconSize="xl" on:click="{() => deleteItem(itemId)}" variant="outline"/>
+        <CloseButton iconSize="xl" on:click="{() => deleteItem(itemId)}" variant="outline" />
       </SimpleGrid>
     {/each}
   </Grid>

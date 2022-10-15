@@ -1,5 +1,4 @@
-
-<script lang='ts'>
+<script lang="ts">
   import { Button, Center, Grid, Header, Kbd, Paper, Stack, Text } from "@svelteuidev/core";
   import { Box, Title } from "@svelteuidev/core";
   import { buildGear, type Gear } from "../Classes";
@@ -7,16 +6,16 @@
   // import EquipmentHeader from "../components/EquipmentHeader.svelte";
   import { gearList } from "../stores/Store";
 
-  console.log($gearList.length)
-  let rest: any
+  console.log($gearList.length);
+  let rest: any;
   const addGear = () => {
-    $gearList = [...$gearList, buildGear({...{} as Gear, gearId: $gearList.length})];
-    gearList.update((n) => n.map((x, index) => x = {...x, gearId: x.gearId = index}))
+    $gearList = [...$gearList, buildGear({ ...({} as Gear), gearId: $gearList.length })];
+    gearList.update((n) => n.map((x, index) => (x = { ...x, gearId: (x.gearId = index) })));
     console.table($gearList);
   };
 
-  function manual_id_update(){
-    gearList.update((n) => n.map((x, index) => x = {...x, gearId: x.gearId = index}))
+  function manual_id_update() {
+    gearList.update((n) => n.map((x, index) => (x = { ...x, gearId: (x.gearId = index) })));
   }
 
   $: groups = $gearList.reduce((curr, val) => {
@@ -31,17 +30,15 @@
 
   $: {
     $gearList.sort((a: Gear, b) => {
-    if ((a.category > b.category)) {
-      return -1
-    } else if((a.category < b.category)) {
-      return +1
-    } else {
-      return 0
-    }
-  });
-
+      if (a.category > b.category) {
+        return -1;
+      } else if (a.category < b.category) {
+        return +1;
+      } else {
+        return 0;
+      }
+    });
   }
-
 </script>
 
 <Header height="10" pb="4">
@@ -55,17 +52,17 @@
   </Grid>
 </Header>
 
-{#each groups as group }
+{#each groups as group}
   <Stack align="stretch" justify="flex-start" spacing="xs">
-      <Box css="{{ backgroundColor: '$cyan100' }}">
-        <Stack>
-          <Title order="{3}">{group.category ? group.category : ""}</Title>
-          {#each group.values as value (value)}
-            <EquipmentComponent bind:gear="{value}" bind:index="{value.gearId}" />
-          {/each}          
-        </Stack>
-      </Box>
-      <br />
+    <Box css="{{ backgroundColor: '$cyan100' }}">
+      <Stack>
+        <Title order="{3}">{group.category ? group.category : ""}</Title>
+        {#each group.values as value (value)}
+          <EquipmentComponent bind:gear="{value}" bind:index="{value.gearId}" />
+        {/each}
+      </Stack>
+    </Box>
+    <br />
   </Stack>
 {:else}
   <Center inline>
