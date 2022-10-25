@@ -23,6 +23,102 @@ export type Scalars = {
   Float: number;
 };
 
+export type Category = {
+  __typename?: "Category";
+  categoryId: Scalars["Int"];
+  categoryName: Scalars["String"];
+};
+
+export type CategoryInput = {
+  categoryId?: InputMaybe<Scalars["Int"]>;
+  categoryName?: InputMaybe<Scalars["String"]>;
+};
+
+export type CategoryResponse = {
+  __typename?: "CategoryResponse";
+  category: Category;
+  errors?: Maybe<Array<FieldError>>;
+};
+
+export type ConsoleInput = {
+  auxInputs: Scalars["Int"];
+  can_expand: Scalars["Boolean"];
+  faders: Scalars["Int"];
+  max_sample_rate: SampleRate;
+  midi: MidiType;
+  model: Scalars["String"];
+  motorized: Scalars["Boolean"];
+  notes: Array<Scalars["String"]>;
+  phantomPowerInputs: Scalars["Int"];
+  physicalAuxInputs: Scalars["Int"];
+  physicalInputs: Scalars["Int"];
+  physicalOutputs: Scalars["Int"];
+  power: ElectricalInput;
+  protocolInputs: Scalars["Int"];
+  searchModel?: InputMaybe<Scalars["String"]>;
+  signalProtocol: Protocol;
+  totalBusses: Scalars["Int"];
+  totalInputs: Scalars["Int"];
+  totalOutputs: Scalars["Int"];
+};
+
+export type ConsoleItem = {
+  __typename?: "ConsoleItem";
+  auxInputs: Scalars["Int"];
+  can_expand: Scalars["Boolean"];
+  faders: Scalars["Int"];
+  max_sample_rate: SampleRate;
+  midi: MidiType;
+  model: Scalars["String"];
+  motorized: Scalars["Boolean"];
+  notes: Array<Scalars["String"]>;
+  phantomPowerInputs: Scalars["Int"];
+  physicalAuxInputs: Scalars["Int"];
+  physicalInputs: Scalars["Int"];
+  physicalOutputs: Scalars["Int"];
+  power: IElectrical;
+  protocolInputs: Scalars["Int"];
+  signalProtocol: Protocol;
+  totalBusses: Scalars["Int"];
+  totalInputs: Scalars["Int"];
+  totalOutputs: Scalars["Int"];
+};
+
+export type ConsoleResponse = {
+  __typename?: "ConsoleResponse";
+  console: ConsoleItem;
+  errors?: Maybe<Array<FieldError>>;
+};
+
+/**
+ * Dimensions: Used for storing physical dimentions of items for display or calculations.
+ *  Ex: Calculating volume for bulk item storage
+ */
+export type Dimension = {
+  __typename?: "Dimension";
+  height: Scalars["Float"];
+  length: Scalars["Float"];
+  width: Scalars["Float"];
+};
+
+/** Input for the electrical properties of an Item, only available in select Item type. Ex: ProcessorItem or ConsoleItem */
+export type ElectricalInput = {
+  /** Electrical connector used as power input. EX: Powercon Blue */
+  input_connector: PowerConnector;
+  /** Electrical equipment tend to have a voltage range. Ex: 90V-260V. */
+  lower_voltage: Scalars["Float"];
+  /** Electrical equipment may have a maximum wattage. Ex: 20A. */
+  max_wattage: Scalars["Float"];
+  /** Electrical connetor for output often daisy chaining. EX: Powercon Grey/White. */
+  output_connector?: InputMaybe<PowerConnector>;
+  /** Electrical may have redundant power built in. */
+  redundant?: InputMaybe<Scalars["Boolean"]>;
+  /** Electrical equipment tend to have a voltage range. Ex: 90V-260V. */
+  upper_voltage: Scalars["Float"];
+  /** Electrical equipment must have a wattage. Ex: 15A. *Note: Please convert Volt-Amperes (VA) to wattage (A). */
+  wattage: Scalars["Float"];
+};
+
 export type Equipment = {
   __typename?: "Equipment";
   category: Scalars["String"];
@@ -67,10 +163,96 @@ export type FieldError = {
   message: Scalars["String"];
 };
 
+/** Interface for items with potential electrical capabilies. Stored as JSONType. */
+export type IElectrical = {
+  __typename?: "IElectrical";
+  /** Electrical connector used as power input. EX: Powercon Blue */
+  input_connector: PowerConnector;
+  /** Electrical equipment tend to have a voltage range. Ex: 90V-260V. */
+  lower_voltage: Scalars["Float"];
+  /** Electrical equipment may have a maximum wattage. Ex: 20A. */
+  max_wattage: Scalars["Float"];
+  /** Electrical connetor for output often daisy chaining. EX: Powercon Grey/White. */
+  output_connector?: Maybe<PowerConnector>;
+  /** Electrical may have redundant power built in. */
+  redundant?: Maybe<Scalars["Boolean"]>;
+  /** Electrical equipment tend to have a voltage range. Ex: 90V-260V. */
+  upper_voltage: Scalars["Float"];
+  /** Electrical equipment must have a wattage. Ex: 15A. *Note: Please convert Volt-Amperes (VA) to wattage (A). */
+  wattage: Scalars["Float"];
+};
+
+export type IGeneric = {
+  /** Monetary value of item (in $USD). */
+  cost?: Maybe<Scalars["Float"]>;
+  /** Store when item was created. */
+  createdAt: Scalars["String"];
+  dimensions?: Maybe<Dimension>;
+  id: Scalars["ID"];
+  /** Global notes for current item. */
+  publicNotes?: Maybe<Scalars["String"]>;
+  /** Store when item was last changed. */
+  updatedAt: Scalars["String"];
+  /** Storing the wieght of an Item (in lbs) */
+  weight?: Maybe<Scalars["Float"]>;
+};
+
+export type Item = IGeneric & {
+  __typename?: "Item";
+  console?: Maybe<ConsoleItem>;
+  /** Monetary value of item (in $USD). */
+  cost?: Maybe<Scalars["Float"]>;
+  /** Store when item was created. */
+  createdAt: Scalars["String"];
+  dimensions?: Maybe<Dimension>;
+  id: Scalars["ID"];
+  model: Scalars["String"];
+  processor?: Maybe<ProcessingItem>;
+  /** Global notes for current item. */
+  publicNotes?: Maybe<Scalars["String"]>;
+  /** Store when item was last changed. */
+  updatedAt: Scalars["String"];
+  /** Storing the wieght of an Item (in lbs) */
+  weight?: Maybe<Scalars["Float"]>;
+};
+
+export type ItemInput = {
+  category: Scalars["String"];
+  console?: InputMaybe<ConsoleInput>;
+  cost: Scalars["Float"];
+  manufacturer: Scalars["String"];
+  model: Scalars["String"];
+  processor?: InputMaybe<ProcessorInput>;
+  publicNotes: Scalars["String"];
+  searchModel?: InputMaybe<Scalars["String"]>;
+  weight?: InputMaybe<Scalars["Float"]>;
+};
+
+export type ItemResponse = {
+  __typename?: "ItemResponse";
+  /** Potential list of errors that can be generated from a Query or Mutation */
+  errors?: Maybe<Array<FieldError>>;
+  /** Potential Item that comes back as result of a successful Query or Mutation. */
+  item?: Maybe<Item>;
+};
+
+/** Common types of Midi connection interfaces */
+export enum MidiType {
+  /** Connection type found in most older / analog equipment. *Note: Conversion is likely necessary for newer equipment. */
+  Serial = "SERIAL",
+  /** Connection type found in most newer equipment. *Note: Signal may not be as robust as serial. */
+  Usb = "USB",
+}
+
 export type Mutation = {
   __typename?: "Mutation";
+  createCategory: CategoryResponse;
+  createConsole: ConsoleResponse;
   createEquipment?: Maybe<EquipmentResponse>;
+  /** Create a new item with optional subfields. */
+  createItem?: Maybe<ItemResponse>;
   createPost: Post;
+  createProcessor: ProcessingResponse;
   deleteEquipment: Scalars["Boolean"];
   deleteEquipmentRange: Scalars["String"];
   deletePost: Scalars["Boolean"];
@@ -79,14 +261,32 @@ export type Mutation = {
   logout: Scalars["Boolean"];
   registerUser: UserResponse;
   updateEquipment?: Maybe<EquipmentResponse>;
+  /** Update an Item using the exact model name and edit all of the fields. */
+  updateItem: ItemResponse;
+};
+
+export type MutationCreateCategoryArgs = {
+  categoryOptions: CategoryInput;
+};
+
+export type MutationCreateConsoleArgs = {
+  consoleOptions: ConsoleInput;
 };
 
 export type MutationCreateEquipmentArgs = {
   inputOptions: EquipmentInput;
 };
 
+export type MutationCreateItemArgs = {
+  itemInput: ItemInput;
+};
+
 export type MutationCreatePostArgs = {
   title: Scalars["String"];
+};
+
+export type MutationCreateProcessorArgs = {
+  processingOptions: ProcessorInput;
 };
 
 export type MutationDeleteEquipmentArgs = {
@@ -119,18 +319,129 @@ export type MutationUpdateEquipmentArgs = {
   updateOptions: EquipmentInput;
 };
 
-export type Post = {
-  __typename?: "Post";
-  createdAt: Scalars["String"];
-  id: Scalars["Int"];
-  title: Scalars["String"];
-  updatedAt: Scalars["String"];
+export type MutationUpdateItemArgs = {
+  edits: ItemInput;
+  model: Scalars["String"];
 };
+
+/** Addition of network ports. Various Protocols are handled via the: (Protocol Enummeration) */
+export type NetworkConnectivty = {
+  power_over_ethernet: Scalars["Boolean"];
+  protocol: Protocol;
+};
+
+/** Represents RJ45 or Ethernet ports for network capable equipment. Each object represents a singular port */
+export type NetworkPort = {
+  __typename?: "NetworkPort";
+  power_over_ethernet: Scalars["Boolean"];
+  protocol: Protocol;
+};
+
+export type Post = IGeneric & {
+  __typename?: "Post";
+  /** Monetary value of item (in $USD). */
+  cost?: Maybe<Scalars["Float"]>;
+  /** Store when item was created. */
+  createdAt: Scalars["String"];
+  dimensions?: Maybe<Dimension>;
+  id: Scalars["ID"];
+  /** Global notes for current item. */
+  publicNotes?: Maybe<Scalars["String"]>;
+  title: Scalars["String"];
+  /** Store when item was last changed. */
+  updatedAt: Scalars["String"];
+  /** Storing the wieght of an Item (in lbs) */
+  weight?: Maybe<Scalars["Float"]>;
+};
+
+/** Common connector types for power input/output. */
+export enum PowerConnector {
+  /** Most common general purpose connector to draw electricity from a powersource. Max voltage: 120. Max amperage: 15A */
+  Edison = "EDISON",
+  /** Similar to an EDISON plug, but with a higher max amperage. Max voltage: 120. Max amperage: 20A */
+  Edison_20A = "EDISON_20A",
+  /** Most common general purpose connector for connecting electrical equipment to a powersource. Max voltage: 250V. Max amperage: 16A */
+  Iec = "IEC",
+  /** High voltage locking connector, the 20 stands for 20 Amps. Max voltage: 250V. *Note: Also known as 3-Wire */
+  L6_20 = "L6_20",
+  /** High voltage locking connector, the 30 stands for 30 Amps. Max voltage: 250V. *Note: Also known as 3-Wire */
+  L6_30 = "L6_30",
+  /** High voltage locking connector, the 50 stands for 50 Amps. Max voltage: 250V. *Note: Also known as 3-Wire */
+  L6_50 = "L6_50",
+  /** High voltage locking connector, the 60 stands for 60 Amps. Max voltage: 250V. *Note: Also known as 3-Wire */
+  L6_60 = "L6_60",
+  /** Most common general purpose connector for live electrical connections. Designed for rugged applications. Max voltage: 250V. Max amperage: 20A. *Note: CANNOT be disconnected under live load. */
+  Powercon_20A = "POWERCON_20A",
+  /** An extremely robust and reliable locking single phase AC appliance cable connector for high current capacity. Max voltage: 250V. Max amperage: 32A. *Note: CANNOT be disconnected under live load. */
+  Powercon_32A = "POWERCON_32A",
+  /** Locking connector for outdoor live electrical connections. Designed for rugged applications. Max voltage: 250V. Max amperage: 20A. *Note: CAN be disconnected under live load. */
+  PowerconTrue1 = "POWERCON_TRUE1",
+  /** Successor to POWERCON_TRUE1. Designed for rugged, outdoor, live, applications. Max voltage: 250V. Max amperage: 20A. *Note: CAN be disconnected under live load. */
+  PowerconTrue1Top = "POWERCON_TRUE1_TOP",
+}
+
+export type ProcessingItem = {
+  __typename?: "ProcessingItem";
+  max_sample_rate: SampleRate;
+  midi: MidiType;
+  network_connectivity: Array<NetworkPort>;
+  physicalInputs: Scalars["Int"];
+  physicalOutputs: Scalars["Int"];
+  power: IElectrical;
+  protocolInputs: Scalars["Int"];
+  signalProtocol: Protocol;
+  totalInputs: Scalars["Int"];
+  totalOutputs: Scalars["Int"];
+};
+
+export type ProcessingResponse = {
+  __typename?: "ProcessingResponse";
+  errors?: Maybe<Array<FieldError>>;
+  processing: ProcessingItem;
+};
+
+export type ProcessorInput = {
+  max_sample_rate: SampleRate;
+  midi?: InputMaybe<MidiType>;
+  network_connectivity: Array<NetworkConnectivty>;
+  physicalInputs: Scalars["Int"];
+  physicalOutputs: Scalars["Int"];
+  power: ElectricalInput;
+  protocolInputs: Scalars["Int"];
+  signalProtocol: Protocol;
+  totalInputs: Scalars["Int"];
+  totalOutputs: Scalars["Int"];
+};
+
+/** Network based audio protocols and computer connections. */
+export enum Protocol {
+  /** Technical standard of audio over IP protocol. Packatizes and distributes audio signals across connected devices with low latency. Compatible with any network switch & DANTE devices. */
+  Aes_67 = "AES_67",
+  /** Audio-Video-Bridging. Streams audio & video signals across connected devices with low latency. Compatible with selected network switchs. *Note: Open-Source */
+  Avb = "AVB",
+  /** AVB Standardized. Streams audio & video signals across connected devices with low latency. Compatible with selected network switchs. *Note: Managed by AVNU Aliance. */
+  AvbMilan = "AVB_MILAN",
+  /** Most common Audio over IP (AoI) & Audio of Ethernet (AoE) protocol. Packatizes and distributes audio signals across connected devices with low latency. Compatible with any network switch. *Note: Proprietary by Audinate */
+  Dante = "DANTE",
+  /** Standard IP connection, for LAN or WAN connections. IPv4 is most commonly used for local networks and is the basis for other IP basesd protocols. */
+  Ip = "IP",
+  /** Audio over Fiber, networked & P2P systems. Streams audio signals across connected devices with low latency. Compatible with selected Optocore gear. *Note: Proprietary by Optocore. */
+  Optocore = "OPTOCORE",
+  /** Audio over Ethernet. Streams 16 audio signals across connected devices with low latency. Compatible with selected gear from Music Tribe child companies. *Note: Proprietary by Music Tribe. */
+  Ultranet = "ULTRANET",
+}
 
 export type Query = {
   __typename?: "Query";
   bye: Scalars["String"];
+  findAllItems: Array<ItemResponse>;
+  findCategory: CategoryResponse;
+  findConsole: ConsoleResponse;
+  /** Using the complete model name find one value. */
+  findItem: ItemResponse;
+  findProcessor: ProcessingResponse;
   fullTextSearch: Array<Equipment>;
+  fuzzyItemSearch: Array<Item>;
   fuzzyTextSearch: Array<Equipment>;
   getAllEquipment?: Maybe<Array<Equipment>>;
   getEquipment?: Maybe<Equipment>;
@@ -141,8 +452,28 @@ export type Query = {
   users: Array<User>;
 };
 
+export type QueryFindCategoryArgs = {
+  categoryOptions: CategoryInput;
+};
+
+export type QueryFindConsoleArgs = {
+  consoleOptions: ConsoleInput;
+};
+
+export type QueryFindItemArgs = {
+  model: Scalars["String"];
+};
+
+export type QueryFindProcessorArgs = {
+  processingOptions: ProcessorInput;
+};
+
 export type QueryFullTextSearchArgs = {
   fullSearch: Scalars["String"];
+};
+
+export type QueryFuzzyItemSearchArgs = {
+  model: Scalars["String"];
 };
 
 export type QueryFuzzyTextSearchArgs = {
@@ -160,6 +491,16 @@ export type QueryPostArgs = {
 export type QuerySearchArgs = {
   searchTitle: Scalars["String"];
 };
+
+/** Standard sampling rates found within the recording industry */
+export enum SampleRate {
+  /** High-Definition or 48.0kHz Sample Rate. Used for predominately for professional recording, high quality distrubution and live events. Note: Commonly found in regular Blu-Rays. */
+  Hd = "HD",
+  /** Standard-Definition or 44.1kHz Sample Rate. Used for predominately for consumer distrubution. Note: Commonly found in regular CDs. */
+  Sd = "SD",
+  /** Ultra-High-Definition or 96.0kHz Sample Rate. Used for predominately for professional recording, high quality distrubution and archival purposes. Note: Commonly found in high-end audio equipment. */
+  Uhd = "UHD",
+}
 
 export type User = {
   __typename?: "User";
